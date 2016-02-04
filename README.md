@@ -1,4 +1,4 @@
-# <img src="Icon.png" width="48" height="48" /> Lambda Converters
+# Lambda Converters
 
 The library allows to write `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
 
