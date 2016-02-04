@@ -1,4 +1,4 @@
-# ![](Icon.png) Lambda Converters
+# <img src="Icon.png" width="48" height="48" /> Lambda Converters
 
 The library allows to write `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
 
@@ -13,7 +13,8 @@ internal static class Converters
     public static readonly IValueConverter VisibleIfNotNull =
         ValueConverter.Create<object, Visibility>(e => e.Value != null ? Visibility.Visible : Visibility.Collapsed);
 
-    public static readonly IValueConverter ToUpperCase = ValueConverter.Create<string, string>(e => e.Value.ToUpper());
+    public static readonly IValueConverter ToUpperCase =
+        ValueConverter.Create<string, string>(e => e.Value.ToUpper());
 }
 ```
 
@@ -31,7 +32,7 @@ You're done! Just reference the converters with the `x:Static` expressions from 
 - separate class for each converter not needed anymore
 - no redundant declarations: if you do not need the `ConvertBack` method, don't define it; otherwise, just put the second lambda expression
 - full support for the remaining parameters of the `Convert` and `ConvertBack` methods: the `culture` and the `parameter` (also strongly-typed) are accessible as well
-- if the conversion fails due to unexpected value types the optional [error strategy](LambdaConverters.Wpf/ConverterErrorStrategy.cs) can be specified
+- if the conversion fails due to unexpected value types the optional [error strategy](Sources/LambdaConverters.Wpf/ConverterErrorStrategy.cs) can be specified
 
 :bulb: *ReSharper users*: use the Extension Manager to install the external annotations for the library.
 
