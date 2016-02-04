@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package>
+    <metadata>
+        <id>LambdaConverters.Annotations</id>
+        <version>1.0.0</version>
+        <title>Lambda Converters Annotations</title>
+        <authors>Michael Damatov</authors>
+        <description>Annotations for the Lambda Converters</description>
+        <projectUrl>https://github.com/michael-damatov/lambda-converters</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</iconUrl>
+        <licenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</licenseUrl>
+        <tags>lambda converter external annotation</tags>
+        <dependencies>
+            <dependency id="Wave" version="1.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Annotations\**" target="DotFiles\Extensions\LambdaConverters.Annotations\annotations" />
+    </files>
+</package>

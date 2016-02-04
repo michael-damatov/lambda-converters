@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Tests.Shared", "Tests.Shared\Tests.Shared.shproj", "{7278725E-263C-4232-8CCF-352AB6F23DC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaConverters.Wpf", "LambdaConverters.Wpf\LambdaConverters.Wpf.csproj", "{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.LambdaConverters.Wpf", "Tests.LambdaConverters.Wpf\Tests.LambdaConverters.Wpf.csproj", "{D970C5FD-C274-4E2A-8BCC-D32AE16E9CFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaConverters.Deployment", "LambdaConverters.Deployment\LambdaConverters.Deployment.csproj", "{15CECFFE-606A-4917-A080-B83A0867BEE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D} = {8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6292D25D-C8E9-4DDE-B7F7-E3151E963C30}"
+	ProjectSection(SolutionItems) = preProject
+		LambdaConverters.sln.DotSettings = LambdaConverters.sln.DotSettings
+		NuGet.exe = NuGet.exe
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Tests.Shared\Tests.Shared.projitems*{d970c5fd-c274-4e2a-8bcc-d32ae16e9cff}*SharedItemsImports = 4
+		Tests.Shared\Tests.Shared.projitems*{7278725e-263c-4232-8ccf-352ab6f23dc9}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D970C5FD-C274-4E2A-8BCC-D32AE16E9CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D970C5FD-C274-4E2A-8BCC-D32AE16E9CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D970C5FD-C274-4E2A-8BCC-D32AE16E9CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D970C5FD-C274-4E2A-8BCC-D32AE16E9CFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CECFFE-606A-4917-A080-B83A0867BEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CECFFE-606A-4917-A080-B83A0867BEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CECFFE-606A-4917-A080-B83A0867BEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CECFFE-606A-4917-A080-B83A0867BEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
