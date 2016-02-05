@@ -1,6 +1,6 @@
 # Lambda Converters
 
-The library allows to write `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
+The library allows to create `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
 
 First create a (static) class and define your converters as static fields (or properties):
 

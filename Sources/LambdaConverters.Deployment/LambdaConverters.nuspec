@@ -6,11 +6,11 @@
         <title>Lambda Converters</title>
         <authors>Michael Damatov</authors>
         <summary>Strongly-typed lambda expressions as value converters</summary>
-        <description>The library allows to write IValueConverter and IMultiValueConverter objects with the most convenient syntax available, ideally, using the lambda expressions.</description>
+        <description>The library allows to create IValueConverter and IMultiValueConverter objects with the most convenient syntax available, ideally, using the lambda expressions.</description>
         <projectUrl>https://github.com/michael-damatov/lambda-converters</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</iconUrl>
         <licenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</licenseUrl>
-        <tags>lambda expression converter strongly typed value multi</tags>
+        <tags>lambda expression converter wpf strongly typed value multi</tags>
     </metadata>
     <files />
 </package>
