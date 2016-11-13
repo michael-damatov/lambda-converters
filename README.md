@@ -1,4 +1,4 @@
-# Lambda Converters
+# Lambda Converters [![NuGet](https://img.shields.io/nuget/v/LambdaConverters.svg)](https://www.nuget.org/packages/LambdaConverters) [![ReSharper-Gallery](https://img.shields.io/badge/resharper--gallery-v1.0.0-lightgrey.svg)](https://resharper-plugins.jetbrains.com/packages/LambdaConverters.Annotations)
 
 The library allows to create `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
 
