@@ -247,10 +247,11 @@ namespace Tests.LambdaConverters.Wpf
         }
 
         [TestMethod]
-        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CompareValueConverterArgs()
         {
+            StructAssert.IsCorrect<ValueConverterArgs<int>>();
+
             var arg = default(ValueConverterArgs<int>);
 
             Assert.AreEqual(
@@ -263,27 +264,18 @@ namespace Tests.LambdaConverters.Wpf
                         return e.Value.ToString();
                     }).Convert(1, typeof(string), null, new CultureInfo("en-GB")));
 
-            var x = default(ValueConverterArgs<int>);
-            Assert.IsFalse(x.Equals(null));
+            StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default(ValueConverterArgs<int>), (x, y) => x == y, (x, y) => x != y);
 
-            Assert.IsFalse(x == arg);
-            Assert.IsTrue(x != arg);
-
-#pragma warning disable 1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(x == x);
-            Assert.IsFalse(x != x);
-#pragma warning restore 1718
-
-            Assert.IsTrue(x.Equals(x as object));
-
-            new HashSet<ValueConverterArgs<int>> { x, x, arg };
+            new HashSet<ValueConverterArgs<int>> { default(ValueConverterArgs<int>), arg, arg };
         }
 
         [TestMethod]
-        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CompareValueConverterArgs_UsingConverterParameter()
         {
+            StructAssert.IsCorrect<ValueConverterArgs<int, bool>>();
+
             var arg = default(ValueConverterArgs<int, bool>);
 
             Assert.AreEqual(
@@ -296,20 +288,10 @@ namespace Tests.LambdaConverters.Wpf
                         return e.Value.ToString();
                     }).Convert(1, typeof(string), true, new CultureInfo("en-GB")));
 
-            var x = default(ValueConverterArgs<int, bool>);
-            Assert.IsFalse(x.Equals(null));
+            StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default(ValueConverterArgs<int, bool>), (x, y) => x == y, (x, y) => x != y);
 
-            Assert.IsFalse(x == arg);
-            Assert.IsTrue(x != arg);
-
-#pragma warning disable 1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(x == x);
-            Assert.IsFalse(x != x);
-#pragma warning restore 1718
-
-            Assert.IsTrue(x.Equals(x as object));
-
-            new HashSet<ValueConverterArgs<int, bool>> { x, x, arg };
+            new HashSet<ValueConverterArgs<int, bool>> { default(ValueConverterArgs<int, bool>), arg, arg };
         }
     }
 }
