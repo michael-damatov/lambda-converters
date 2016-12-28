@@ -34,7 +34,7 @@ namespace LambdaConverters
                     isConvertBackFunctionAvailable) { }
 
             [Pure]
-            [ContractAnnotation("targetTypes: null => null; targetTypes: notnull => notnull")]
+            [ContractAnnotation("targetTypes: null => null; targetTypes: notnull => notnull", true)]
             internal object[] GetErrorValues(object defaultValue, Type[] targetTypes)
             {
                 if (targetTypes != null)
@@ -60,13 +60,7 @@ namespace LambdaConverters
             {
                 if (!IsConvertFunctionAvailable)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
-                            "convertFunction",
-                            ErrorStrategy));
+                    EventSource.Log.MissingConvertFunction("convertFunction", ErrorStrategy.ToString());
 
                     return GetErrorValue(DefaultOutputTypeValue);
                 }
@@ -75,32 +69,19 @@ namespace LambdaConverters
                 {
                     if (!targetType.IsAssignableFrom(OutputType))
                     {
-                        Diagnostics.TraceSource.TraceEvent(
-                            TraceEventType.Warning,
-                            0,
-                            string.Format(
-                                "The requested target type ({0}) is not assignable from the specified output type ({1}), " +
-                                "conversion result is a value according to the specified error strategy ({2}).",
-                                targetType.Name,
-                                OutputType.Name,
-                                ErrorStrategy));
+                        EventSource.Log.NonAssignableTargetType(targetType.Name, OutputType.Name, ErrorStrategy.ToString());
 
                         return GetErrorValue(DefaultOutputTypeValue);
                     }
                 }
                 else
                 {
-                    Diagnostics.TraceSource.TraceEvent(TraceEventType.Information, 0, "The target type is not requested.");
+                    EventSource.Log.NonRequestedTargetType();
                 }
 
                 if (values == null)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The provided values are null, conversion result is a value according to the specified error strategy ({0}).",
-                            ErrorStrategy));
+                    EventSource.Log.NullValues(ErrorStrategy.ToString());
 
                     return GetErrorValue(DefaultOutputTypeValue);
                 }
@@ -112,13 +93,7 @@ namespace LambdaConverters
             {
                 if (!IsConvertBackFunctionAvailable)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The {0} is null, back conversion result is a value according to the specified error strategy ({1}).",
-                            "convertBackFunction",
-                            ErrorStrategy));
+                    EventSource.Log.MissingConvertBackFunction("convertBackFunction", ErrorStrategy.ToString());
 
                     return GetErrorValues(DefaultInputTypeValue, targetTypes);
                 }
@@ -132,32 +107,24 @@ namespace LambdaConverters
                         {
                             if (!targetType.IsAssignableFrom(InputType))
                             {
-                                Diagnostics.TraceSource.TraceEvent(
-                                    TraceEventType.Warning,
-                                    0,
-                                    string.Format(
-                                        "The requested target type ({0}) at the position {1} is not assignable from the specified input type ({2}), " +
-                                        "back conversion result is a value according to the specified error strategy ({3}).",
-                                        targetType.Name,
-                                        i,
-                                        InputType.Name,
-                                        ErrorStrategy));
+                                EventSource.Log.NonAssignableTargetTypeAtPositionForBackConversion(
+                                    targetType.Name,
+                                    i,
+                                    InputType.Name,
+                                    ErrorStrategy.ToString());
 
                                 return GetErrorValues(DefaultInputTypeValue, targetTypes);
                             }
                         }
                         else
                         {
-                            Diagnostics.TraceSource.TraceEvent(
-                                TraceEventType.Information,
-                                0,
-                                string.Format("The target type at the position {0} is not requested.", i));
+                            EventSource.Log.NonRequestedTargetTypeAtPosition(i);
                         }
                     }
                 }
                 else
                 {
-                    Diagnostics.TraceSource.TraceEvent(TraceEventType.Information, 0, "The target types are not requested.");
+                    EventSource.Log.NonRequestedTargetType();
                 }
 
                 return ConvertBackInternal(value, targetTypes, parameter, culture);
@@ -183,14 +150,7 @@ namespace LambdaConverters
             {
                 if (parameter != null)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "A conversion parameter ({0}) is provided, use the appropriate converter, " +
-                            "conversion result is a value according to the specified error strategy ({1}).",
-                            parameter.GetType().Name,
-                            ErrorStrategy));
+                    EventSource.Log.ParameterInParameterlessConverter(parameter.GetType().Name, ErrorStrategy.ToString());
 
                     return GetErrorValue(default(O));
                 }
@@ -205,16 +165,11 @@ namespace LambdaConverters
                     }
                     catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                     {
-                        Diagnostics.TraceSource.TraceEvent(
-                            TraceEventType.Warning,
-                            0,
-                            string.Format(
-                                "The value ({0}) at the position {1} cannot be cast to the specified input type ({2}), " +
-                                "conversion result is a value according to the specified error strategy ({3}).",
-                                value?.GetType().Name ?? "null",
-                                i,
-                                typeof(I).Name,
-                                ErrorStrategy));
+                        EventSource.Log.UnableToCastAtPositionToInputType(
+                            value?.GetType().Name ?? "null",
+                            i,
+                            typeof(I).Name,
+                            ErrorStrategy.ToString());
 
                         return GetErrorValue(default(O));
                     }
@@ -227,14 +182,9 @@ namespace LambdaConverters
             {
                 if (parameter != null)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "A conversion parameter ({0}) is provided, use the appropriate converter, " +
-                            "back conversion result is a value according to the specified error strategy ({1}).",
-                            parameter.GetType().Name,
-                            ErrorStrategy));
+                    EventSource.Log.ParameterInParameterlessConverterForBackConversion(
+                        parameter.GetType().Name,
+                        ErrorStrategy.ToString());
 
                     return GetErrorValues(default(I), targetTypes);
                 }
@@ -246,15 +196,7 @@ namespace LambdaConverters
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The value ({0}) cannot be cast to the specified output type ({1}), " +
-                            "back conversion result is a value according to the specified error strategy ({2}).",
-                            value?.GetType().Name ?? "null",
-                            typeof(O).Name,
-                            ErrorStrategy));
+                    EventSource.Log.UnableToCastToOutputType(value?.GetType().Name ?? "null", typeof(O).Name, ErrorStrategy.ToString());
 
                     return GetErrorValues(default(I), targetTypes);
                 }
@@ -290,15 +232,7 @@ namespace LambdaConverters
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The parameter value ({0}) cannot be cast to the specified parameter type ({1}), " +
-                            "conversion result is a value according to the specified error strategy ({2}).",
-                            parameter?.GetType().Name ?? "null",
-                            typeof(P).Name,
-                            ErrorStrategy));
+                    EventSource.Log.UnableToCastToParameterType(parameter?.GetType().Name ?? "null", typeof(P).Name, ErrorStrategy.ToString());
 
                     return GetErrorValue(default(O));
                 }
@@ -313,16 +247,11 @@ namespace LambdaConverters
                     }
                     catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                     {
-                        Diagnostics.TraceSource.TraceEvent(
-                            TraceEventType.Warning,
-                            0,
-                            string.Format(
-                                "The value ({0}) at the position {1} cannot be cast to the specified input type ({2}), " +
-                                "conversion result is a value according to the specified error strategy ({3}).",
-                                value?.GetType().Name ?? "null",
-                                i,
-                                typeof(I).Name,
-                                ErrorStrategy));
+                        EventSource.Log.UnableToCastAtPositionToInputType(
+                            value?.GetType().Name ?? "null",
+                            i,
+                            typeof(I).Name,
+                            ErrorStrategy.ToString());
 
                         return GetErrorValue(default(O));
                     }
@@ -340,15 +269,10 @@ namespace LambdaConverters
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The parameter value ({0}) cannot be cast to the specified parameter type ({1}), " +
-                            "back conversion result is a value according to the specified error strategy ({2}).",
-                            parameter?.GetType().Name ?? "null",
-                            typeof(P).Name,
-                            ErrorStrategy));
+                    EventSource.Log.UnableToCastToParameterTypeForBackConversion(
+                        parameter?.GetType().Name ?? "null",
+                        typeof(P).Name,
+                        ErrorStrategy.ToString());
 
                     return GetErrorValues(default(I), targetTypes);
                 }
@@ -360,15 +284,7 @@ namespace LambdaConverters
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
-                    Diagnostics.TraceSource.TraceEvent(
-                        TraceEventType.Warning,
-                        0,
-                        string.Format(
-                            "The value ({0}) cannot be cast to the specified output type ({1}), " +
-                            "back conversion result is a value according to the specified error strategy ({2}).",
-                            value?.GetType().Name ?? "null",
-                            typeof(O).Name,
-                            ErrorStrategy));
+                    EventSource.Log.UnableToCastToOutputType(value?.GetType().Name ?? "null", typeof(O).Name, ErrorStrategy.ToString());
 
                     return GetErrorValues(default(I), targetTypes);
                 }
@@ -385,7 +301,7 @@ namespace LambdaConverters
         /// </summary>
         /// <typeparam name="I">The input value type.</typeparam>
         /// <typeparam name="O">The output value type.</typeparam>
-        /// <param name="convertFunction">The <see cref="Convert" /> method.</param>
+        /// <param name="convertFunction">The <see cref="IValueConverter.Convert" /> method.</param>
         /// <param name="convertBackFunction">The <see cref="IValueConverter.ConvertBack" /> method.</param>
         /// <param name="errorStrategy">The error strategy.</param>
         /// <returns>An <see cref="IMultiValueConverter" /> object.</returns>
@@ -419,7 +335,7 @@ namespace LambdaConverters
         /// <typeparam name="I">The input value type.</typeparam>
         /// <typeparam name="O">The output value type.</typeparam>
         /// <typeparam name="P">The converter parameter type.</typeparam>
-        /// <param name="convertFunction">The <see cref="Convert" /> method.</param>
+        /// <param name="convertFunction">The <see cref="IValueConverter.Convert" /> method.</param>
         /// <param name="convertBackFunction">The <see cref="IValueConverter.ConvertBack" /> method.</param>
         /// <param name="errorStrategy">The error strategy.</param>
         /// <returns>An <see cref="IMultiValueConverter" /> object.</returns>

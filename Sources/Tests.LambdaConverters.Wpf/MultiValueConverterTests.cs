@@ -391,10 +391,11 @@ namespace Tests.LambdaConverters.Wpf
         }
 
         [TestMethod]
-        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CompareMultiValueConverterArgs()
         {
+            StructAssert.IsCorrect<MultiValueConverterArgs<int>>();
+
             var arg1 = default(MultiValueConverterArgs<int>);
             var arg2 = default(MultiValueConverterArgs<int>);
 
@@ -417,29 +418,20 @@ namespace Tests.LambdaConverters.Wpf
                         return e.Values.Sum().ToString();
                     }).Convert(new object[] { 1, 2, 3 }, typeof(string), null, new CultureInfo("en-GB")));
 
-            var x = default(MultiValueConverterArgs<int>);
-            Assert.IsFalse(x.Equals(null));
+            StructAssert.AreEqual(default(MultiValueConverterArgs<int>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreEqual(arg1, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreEqual(arg2, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg1, arg2, (x, y) => x == y, (x, y) => x != y);
 
-            Assert.IsFalse(x == arg1);
-            Assert.IsFalse(arg1 == x);
-            Assert.IsFalse(arg1 == arg2);
-            Assert.IsTrue(x != arg1);
-
-#pragma warning disable 1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(x == x);
-            Assert.IsFalse(x != x);
-#pragma warning restore 1718
-
-            Assert.IsTrue(x.Equals(x as object));
-
-            new HashSet<MultiValueConverterArgs<int>> { x, x, arg1 };
+            new HashSet<MultiValueConverterArgs<int>> { default(MultiValueConverterArgs<int>), arg1, arg1 };
         }
 
         [TestMethod]
-        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CompareMultiValueConverterArgs_UsingConverterParameter()
         {
+            StructAssert.IsCorrect<MultiValueConverterArgs<int, bool>>();
+
             var arg1 = default(MultiValueConverterArgs<int, bool>);
             var arg2 = default(MultiValueConverterArgs<int, bool>);
 
@@ -462,22 +454,12 @@ namespace Tests.LambdaConverters.Wpf
                         return e.Values.Sum().ToString();
                     }).Convert(new object[] { 1, 2, 3 }, typeof(string), true, new CultureInfo("en-GB")));
 
-            var x = default(MultiValueConverterArgs<int, bool>);
-            Assert.IsFalse(x.Equals(null));
+            StructAssert.AreEqual(default(MultiValueConverterArgs<int, bool>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreEqual(arg1, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreEqual(arg2, (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg1, arg2, (x, y) => x == y, (x, y) => x != y);
 
-            Assert.IsFalse(x == arg1);
-            Assert.IsFalse(arg1 == x);
-            Assert.IsFalse(arg1 == arg2);
-            Assert.IsTrue(x != arg1);
-
-#pragma warning disable 1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(x == x);
-            Assert.IsFalse(x != x);
-#pragma warning restore 1718
-
-            Assert.IsTrue(x.Equals(x as object));
-
-            new HashSet<MultiValueConverterArgs<int, bool>> { x, x, arg1 };
+            new HashSet<MultiValueConverterArgs<int, bool>> { default(MultiValueConverterArgs<int, bool>), arg1, arg1 };
         }
 
         [TestMethod]

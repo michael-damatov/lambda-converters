@@ -73,7 +73,6 @@ namespace LambdaConverters.Deployment
             isReleaseBuild = string.Equals(executionDirectory, "release", StringComparison.OrdinalIgnoreCase);
 
             var solutionDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(executionDirectoryPath)));
-            Debug.Assert(solutionDirectory != null);
 
             nugetPath = Path.Combine(solutionDirectory, "NuGet.exe");
 
@@ -109,13 +108,13 @@ namespace LambdaConverters.Deployment
             Debug.Assert(metadataElement != null);
 
             var versionElement = metadataElement.Element("version");
-            var fileVersionAttributeData = assembly.GetCustomAttributesData()?.First(a => a?.AttributeType == typeof(AssemblyFileVersionAttribute));
+            var fileVersionAttributeData = assembly.GetCustomAttributesData()?.First(a => a.AttributeType == typeof(AssemblyFileVersionAttribute));
             Debug.Assert(versionElement != null);
             Debug.Assert(fileVersionAttributeData != null);
             Debug.Assert(fileVersionAttributeData.ConstructorArguments[0].Value is string);
             versionElement.Value = (string)fileVersionAttributeData.ConstructorArguments[0].Value;
 
-            const string target = @"lib\net45";
+            const string target = @"lib\net46";
             nuspec.Root.Element("files")?
                 .Add(
                     new XElement("file", new XAttribute("src", assemblyPath), new XAttribute("target", target)),
@@ -179,7 +178,6 @@ namespace LambdaConverters.Deployment
         static void OpenInWindowsExplorer([NotNull] string nuspecPath, [NotNull] string packageFileName)
         {
             var nuspecDirectoryPath = Path.GetDirectoryName(nuspecPath);
-            Debug.Assert(nuspecDirectoryPath != null);
 
             using (Process.Start("explorer", "/select, \"" + Path.Combine(nuspecDirectoryPath, packageFileName) + "\"")) { }
         }
