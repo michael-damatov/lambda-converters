@@ -13,6 +13,7 @@ namespace LambdaConverters
         public static class Keywords
         {
             public const EventKeywords Converters = (EventKeywords)0x4;
+            public const EventKeywords Selectors = (EventKeywords)0x8;
         }
 
         [NotNull]
@@ -447,6 +448,64 @@ namespace LambdaConverters
                     21,
                     objectType,
                     parameter,
+                    errorStrategy,
+                    memberName,
+                    sourceFilePath,
+                    sourceLineNumber);
+
+        /// <summary>
+        /// The {0} is null, conversion result is a value according to the specified error strategy ({1}).
+        /// </summary>
+        [Conditional("TRACE")]
+        [Event(
+            22,
+            Version = 0,
+            Message = "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
+            Level = EventLevel.Warning,
+            Keywords = Keywords.Selectors,
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
+        )]
+        public void MissingSelectTemplateFunction(
+            string callback,
+            string errorStrategy,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string sourceFilePath = null,
+            [CallerLineNumber] int sourceLineNumber = 0)
+            =>
+                WriteEvent(
+                    22,
+                    callback,
+                    errorStrategy,
+                    memberName,
+                    sourceFilePath,
+                    sourceLineNumber);
+
+        /// <summary>
+        /// The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).
+        /// </summary>
+        [Conditional("TRACE")]
+        [Event(
+            23,
+            Version = 0,
+            Message = "The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).",
+            Level = EventLevel.Warning,
+            Keywords = Keywords.Selectors,
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
+        )]
+        public void UnableToCastToItemType(
+            string itemType,
+            string inputType,
+            string errorStrategy,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string sourceFilePath = null,
+            [CallerLineNumber] int sourceLineNumber = 0)
+            =>
+                WriteEvent(
+                    23,
+                    itemType,
+                    inputType,
                     errorStrategy,
                     memberName,
                     sourceFilePath,

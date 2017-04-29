@@ -57,7 +57,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Selector.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="SelectorErrorStrategy.cs" />
     <Compile Include="ConverterErrorStrategy.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="MultiValueConverter.cs" />
@@ -66,13 +68,17 @@
     <Compile Include="MultiValueConverterArgs[T].cs" />
     <Compile Include="MultiValueConverterArgs[T].IEquatable[MultiValueConverterArgs[T]].cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateSelector.cs" />
     <Compile Include="ValueConverter.cs" />
     <Compile Include="ValueConverterArgs[T,P].cs" />
     <Compile Include="ValueConverterArgs[T,P].IEquatable[ValueConverterArgs[T,P]].cs" />
+    <Compile Include="TemplateSelectorArgs[T].cs" />
     <Compile Include="ValueConverterArgs[T].cs" />
+    <Compile Include="TemplateSelectorArgs[T].IEquatable[DataTemplateSelectorArgs[T]].cs" />
     <Compile Include="ValueConverterArgs[T].IEquatable[ValueConverterArgs[T]].cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\LambdaConverters.public.snk" />
   </ItemGroup>
