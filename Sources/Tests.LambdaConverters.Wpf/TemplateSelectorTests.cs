@@ -30,7 +30,7 @@ namespace Tests.LambdaConverters.Wpf
         }
 
         [TestMethod]
-        public void WithConvertFunction()
+        public void WithSelectFunction()
         {
 
             // with an input value of an unexpected type (use default error strategy)
@@ -50,7 +50,7 @@ namespace Tests.LambdaConverters.Wpf
 
         [TestMethod]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
-        public void CompareValueConverterArgs()
+        public void CompareTemplateSelectorArgs()
         {
             StructAssert.IsCorrect<TemplateSelectorArgs<int>>();
 

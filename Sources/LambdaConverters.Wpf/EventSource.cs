@@ -14,6 +14,7 @@ namespace LambdaConverters
         {
             public const EventKeywords Converters = (EventKeywords)0x4;
             public const EventKeywords Selectors = (EventKeywords)0x8;
+            public const EventKeywords Rules = (EventKeywords)0x10;
         }
 
         [NotNull]
@@ -504,6 +505,64 @@ namespace LambdaConverters
             =>
                 WriteEvent(
                     23,
+                    itemType,
+                    inputType,
+                    errorStrategy,
+                    memberName,
+                    sourceFilePath,
+                    sourceLineNumber);
+
+        /// <summary>
+        /// The {0} is null, conversion result is a value according to the specified error strategy ({1}).
+        /// </summary>
+        [Conditional("TRACE")]
+        [Event(
+            24,
+            Version = 0,
+            Message = "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
+            Level = EventLevel.Warning,
+            Keywords = Keywords.Rules,
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
+        )]
+        public void MissingRuleFunction(
+            string callback,
+            string errorStrategy,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string sourceFilePath = null,
+            [CallerLineNumber] int sourceLineNumber = 0)
+            =>
+                WriteEvent(
+                    24,
+                    callback,
+                    errorStrategy,
+                    memberName,
+                    sourceFilePath,
+                    sourceLineNumber);
+
+        /// <summary>
+        /// The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).
+        /// </summary>
+        [Conditional("TRACE")]
+        [Event(
+            25,
+            Version = 0,
+            Message = "The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).",
+            Level = EventLevel.Warning,
+            Keywords = Keywords.Rules,
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
+        )]
+        public void UnableToCastToRuleInputType(
+            string itemType,
+            string inputType,
+            string errorStrategy,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string sourceFilePath = null,
+            [CallerLineNumber] int sourceLineNumber = 0)
+            =>
+                WriteEvent(
+                    25,
                     itemType,
                     inputType,
                     errorStrategy,

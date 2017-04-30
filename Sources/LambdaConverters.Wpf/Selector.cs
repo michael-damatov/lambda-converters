@@ -10,12 +10,12 @@ namespace LambdaConverters
             SelectorErrorStrategy errorStrategy,
             object defaultInputTypeValue,
             [NotNull] Type inputType,
-            bool isConvertFunctionAvailable)
+            bool isSelectFunctionAvailable)
         {
             ErrorStrategy = errorStrategy;
             DefaultInputTypeValue = defaultInputTypeValue;
             InputType = inputType;
-            IsSelectFunctionAvailable = isConvertFunctionAvailable;
+            IsSelectFunctionAvailable = isSelectFunctionAvailable;
         }
 
         internal SelectorErrorStrategy ErrorStrategy { get; }

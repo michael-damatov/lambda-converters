@@ -72,7 +72,7 @@ namespace LambdaConverters
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataTemplateSelector" /> interface.
+        /// Initializes a new instance of the <see cref="DataTemplateSelector" /> class.
         /// </summary>
         /// <typeparam name="I">The item type.</typeparam>
         /// <param name="selectFunction">The <see cref="DataTemplateSelector.SelectTemplate" /> method.</param>
