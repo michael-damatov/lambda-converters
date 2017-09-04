@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package>
     <metadata>
-        <id>LambdaConverters</id>
+        <id>LambdaConvertersAndCo</id>
         <version />
-        <title>Lambda Converters</title>
-        <authors>Michael Damatov</authors>
+        <title>Lambda Converters and Co.</title>
+        <authors>Michael Damatov, Yeah69</authors>
         <summary>Strongly-typed lambda expressions as value converters</summary>
-        <description>The library allows to create IValueConverter and IMultiValueConverter objects with the most convenient syntax available, ideally, using the lambda expressions.</description>
-        <projectUrl>https://github.com/michael-damatov/lambda-converters</projectUrl>
+        <description>This is a forked version of the "Lambda Converters" framework from Michael Damatov (please see https://github.com/michael-damatov/lambda-converters). It extends its capabilities to "Lambda ValidationRules" and "Lambda DataTemplateSelectors". Besides that it decreases the required .Net version to 4.5, so broader range of project may use this library.</description>
+        <projectUrl>https://github.com/Yeah69/lambda-converters</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</iconUrl>
-        <licenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</licenseUrl>
+        <licenseUrl>https://github.com/Yeah69/lambda-converters/blob/master/LICENSE</licenseUrl>
         <tags>lambda expression converter wpf strongly typed value multi</tags>
     </metadata>
     <files />

@@ -75,7 +75,7 @@ namespace LambdaConverters
         /// Initializes a new instance of the <see cref="ValidationRule" /> class.
         /// </summary>
         /// <typeparam name="I">The value type.</typeparam>
-        /// <param name="ruleFunction">The <see cref="ValidationRule.Validate" /> method.</param>
+        /// <param name="ruleFunction">The Validate method.</param>
         /// <param name="errorStrategy">The error strategy.</param>
         /// <returns>An <see cref="ValidationRule" /> object.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
