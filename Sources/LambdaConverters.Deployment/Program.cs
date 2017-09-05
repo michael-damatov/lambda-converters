@@ -114,7 +114,7 @@ namespace LambdaConverters.Deployment
             Debug.Assert(fileVersionAttributeData.ConstructorArguments[0].Value is string);
             versionElement.Value = (string)fileVersionAttributeData.ConstructorArguments[0].Value;
 
-            const string target = @"lib\net46";
+            const string target = @"lib\net45";
             nuspec.Root.Element("files")?
                 .Add(
                     new XElement("file", new XAttribute("src", assemblyPath), new XAttribute("target", target)),
