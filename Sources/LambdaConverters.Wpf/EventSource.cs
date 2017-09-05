@@ -32,7 +32,8 @@ namespace LambdaConverters
             Message = "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void MissingConvertFunction(
             string callback,
@@ -59,7 +60,8 @@ namespace LambdaConverters
             Message = "The {0} is null, back conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void MissingConvertBackFunction(
             string callback,
@@ -86,7 +88,8 @@ namespace LambdaConverters
             Message = "The requested target type ({0}) is not assignable from the specified output type ({1}), conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NonAssignableTargetType(
             string targetType,
@@ -115,7 +118,8 @@ namespace LambdaConverters
             Message = "The requested target type ({0}) is not assignable from the specified input type ({1}), back conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NonAssignableTargetTypeForBackConversion(
             string targetType,
@@ -144,7 +148,8 @@ namespace LambdaConverters
             Message = "The requested target type ({0}) at the position {1} is not assignable from the specified input type ({2}), back conversion result is a value according to the specified error strategy ({3}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NonAssignableTargetTypeAtPositionForBackConversion(
             string targetType,
@@ -175,7 +180,8 @@ namespace LambdaConverters
             Message = "The provided values are null, conversion result is a value according to the specified error strategy ({0}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NullValues(
             string errorStrategy,
@@ -200,7 +206,8 @@ namespace LambdaConverters
             Message = "The target type is not requested.",
             Level = EventLevel.Informational,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NonRequestedTargetType(
             [CallerMemberName] string memberName = null,
@@ -223,7 +230,8 @@ namespace LambdaConverters
             Message = "The target type at the position {0} is not requested.",
             Level = EventLevel.Informational,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void NonRequestedTargetTypeAtPosition(
             int position,
@@ -248,7 +256,8 @@ namespace LambdaConverters
             Message = "A conversion parameter ({0}) is provided, use the appropriate converter, conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void ParameterInParameterlessConverter(
             string objectType,
@@ -275,7 +284,8 @@ namespace LambdaConverters
             Message = "A conversion parameter ({0}) is provided, use the appropriate converter, back conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void ParameterInParameterlessConverterForBackConversion(
             string objectType,
@@ -302,7 +312,8 @@ namespace LambdaConverters
             Message = "The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToInputType(
             string objectType,
@@ -331,7 +342,8 @@ namespace LambdaConverters
             Message = "The value ({0}) at the position {1} cannot be cast to the specified input type ({2}), conversion result is a value according to the specified error strategy ({3}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastAtPositionToInputType(
             string objectType,
@@ -362,7 +374,8 @@ namespace LambdaConverters
             Message = "The value ({0}) cannot be cast to the specified output type ({1}), back conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToOutputType(
             string objectType,
@@ -391,7 +404,8 @@ namespace LambdaConverters
             Message = "The parameter value ({0}) cannot be cast to the specified parameter type ({1}), conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToParameterType(
             string objectType,
@@ -420,7 +434,8 @@ namespace LambdaConverters
             Message = "The parameter value ({0}) cannot be cast to the specified parameter type ({1}), back conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToParameterTypeForBackConversion(
             string objectType,
@@ -449,7 +464,8 @@ namespace LambdaConverters
             Message = "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Selectors,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void MissingSelectTemplateFunction(
             string callback,
@@ -476,7 +492,8 @@ namespace LambdaConverters
             Message = "The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Selectors,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToItemType(
             string itemType,
@@ -505,7 +522,8 @@ namespace LambdaConverters
             Message = "The {0} is null, conversion result is a value according to the specified error strategy ({1}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Rules,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void MissingRuleFunction(
             string callback,
@@ -532,7 +550,8 @@ namespace LambdaConverters
             Message = "The value ({0}) cannot be cast to the specified input type ({1}), conversion result is a value according to the specified error strategy ({2}).",
             Level = EventLevel.Warning,
             Keywords = Keywords.Rules,
-            Opcode = EventOpcode.Info
+            Opcode = EventOpcode.Info,
+            Channel = EventChannel.Operational
         )]
         public void UnableToCastToRuleInputType(
             string itemType,
