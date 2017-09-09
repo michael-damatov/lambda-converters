@@ -57,8 +57,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rule.cs" />
-    <Compile Include="Selector.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="RuleErrorStrategy.cs" />
     <Compile Include="SelectorErrorStrategy.cs" />

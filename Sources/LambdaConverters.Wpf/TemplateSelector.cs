@@ -11,15 +11,37 @@ namespace LambdaConverters
     /// </summary>
     public static class TemplateSelector
     {
-        sealed class Selector<I> : LambdaConverters.Selector
+        sealed class Selector<I> : System.Windows.Controls.DataTemplateSelector
         {
             readonly Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction;
+
+            SelectorErrorStrategy ErrorStrategy { get; }
+
+            bool IsSelectFunctionAvailable { get; }
+
+            [Pure]
+            DataTemplate GetErrorValue(DataTemplate defaultValue)
+            {
+                switch (ErrorStrategy)
+                {
+                    case SelectorErrorStrategy.ReturnDefaultValue:
+                        return defaultValue;
+
+                    case SelectorErrorStrategy.ReturnNewEmptyDataTemplate:
+                        return new DataTemplate();
+
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
 
             internal Selector(
                 Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction,
                 SelectorErrorStrategy errorStrategy)
-                : base(errorStrategy, default(I), typeof(I), selectFunction != null)
             {
+                ErrorStrategy = errorStrategy;
+                IsSelectFunctionAvailable = selectFunction != null;
+
                 this.selectFunction = selectFunction;
             }
 

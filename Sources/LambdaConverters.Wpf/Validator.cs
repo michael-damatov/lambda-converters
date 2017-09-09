@@ -11,16 +11,40 @@ namespace LambdaConverters
     /// </summary>
     public static class Validator
     {
-        sealed class Rule<I> : LambdaConverters.Rule
+        sealed class Rule<I> : System.Windows.Controls.ValidationRule
         {
             readonly Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction;
 
             internal Rule(
                 Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction,
                 RuleErrorStrategy errorStrategy)
-                : base(errorStrategy, default(I), typeof(I), ruleFunction != null)
             {
+                ErrorStrategy = errorStrategy;
+                IsRuleFunctionAvailable = ruleFunction != null;
                 this.ruleFunction = ruleFunction;
+            }
+
+            RuleErrorStrategy ErrorStrategy { get; }
+
+            bool IsRuleFunctionAvailable { get; }
+
+            [Pure]
+            ValidationResult GetErrorValue(ValidationResult defaultValue)
+            {
+                switch (ErrorStrategy)
+                {
+                    case RuleErrorStrategy.ReturnDefaultValue:
+                        return defaultValue;
+
+                    case RuleErrorStrategy.ReturnInvalid:
+                        return new ValidationResult(false, null);
+
+                    case RuleErrorStrategy.ReturnValid:
+                        return new ValidationResult(true, null);
+
+                    default:
+                        throw new NotSupportedException();
+                }
             }
 
             ValidationResult ValidateInternal(object item, CultureInfo cultureInfo)
@@ -59,7 +83,7 @@ namespace LambdaConverters
         /// Initializes a new instance of the <see cref="ValidationRule" /> class.
         /// </summary>
         /// <typeparam name="I">The value type.</typeparam>
-        /// <param name="ruleFunction">The Validate method.</param>
+        /// <param name="ruleFunction">The <see cref="ValidationRule.Validate(object, CultureInfo)"/> method.</param>
         /// <param name="errorStrategy">The error strategy.</param>
         /// <returns>An <see cref="ValidationRule" /> object.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
