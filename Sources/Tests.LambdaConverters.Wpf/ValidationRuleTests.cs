@@ -19,7 +19,7 @@ namespace Tests.LambdaConverters.Wpf
             // invalid error strategy
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(
                 () => Validator.Create<int>(errorStrategy: (RuleErrorStrategy)int.MaxValue),
-                "ruleStrategy");
+                "errorStrategy");
 
             // with ConverterErrorStrategy.ReturnDefaultValue (default)
             Assert.AreEqual(null, Validator.Create<int>().Validate(1, null));
