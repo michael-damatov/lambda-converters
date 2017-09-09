@@ -11,35 +11,7 @@ namespace LambdaConverters
     /// </summary>
     public static class Validator
     {
-        abstract class Rule : LambdaConverters.Rule
-        {
-            protected Rule(
-                RuleErrorStrategy errorStrategy,
-                object defaultInputTypeValue,
-                [NotNull] Type inputType,
-                bool isRuleFunctionAvailable)
-                : base(
-                    errorStrategy,
-                    defaultInputTypeValue,
-                    inputType,
-                    isRuleFunctionAvailable) { }
-
-            protected abstract ValidationResult ValidateInternal(object value, CultureInfo cultureInfo);
-
-            public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-            {
-                if (!IsRuleFunctionAvailable)
-                {
-                    EventSource.Log.MissingRuleFunction("ruleFunction", ErrorStrategy.ToString());
-
-                    return GetErrorValue(default(ValidationResult));
-                }
-
-                return ValidateInternal(value, cultureInfo);
-            }
-        }
-
-        sealed class Rule<I> : Rule
+        sealed class Rule<I> : LambdaConverters.Rule
         {
             readonly Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction;
 
@@ -51,7 +23,7 @@ namespace LambdaConverters
                 this.ruleFunction = ruleFunction;
             }
 
-            protected override ValidationResult ValidateInternal(object item, CultureInfo cultureInfo)
+            ValidationResult ValidateInternal(object item, CultureInfo cultureInfo)
             {
                 I inputValue;
                 try
@@ -69,13 +41,25 @@ namespace LambdaConverters
 
                 return ruleFunction(new ValidationRuleArgs<I>(inputValue, cultureInfo));
             }
+
+            public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+            {
+                if (!IsRuleFunctionAvailable)
+                {
+                    EventSource.Log.MissingRuleFunction("ruleFunction", ErrorStrategy.ToString());
+
+                    return GetErrorValue(default(ValidationResult));
+                }
+
+                return ValidateInternal(value, cultureInfo);
+            }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationRule" /> class.
         /// </summary>
         /// <typeparam name="I">The value type.</typeparam>
-        /// <param name="ruleFunction">The <see cref="ValidationRule.Validate" /> method.</param>
+        /// <param name="ruleFunction">The Validate method.</param>
         /// <param name="errorStrategy">The error strategy.</param>
         /// <returns>An <see cref="ValidationRule" /> object.</returns>
         /// <exception cref="ArgumentOutOfRangeException">

@@ -11,35 +11,7 @@ namespace LambdaConverters
     /// </summary>
     public static class TemplateSelector
     {
-        abstract class Selector : LambdaConverters.Selector
-        {
-            protected Selector(
-                SelectorErrorStrategy errorStrategy,
-                object defaultInputTypeValue,
-                [NotNull] Type inputType,
-                bool isSelectorFunctionAvailable)
-                : base(
-                    errorStrategy,
-                    defaultInputTypeValue,
-                    inputType,
-                    isSelectorFunctionAvailable) { }
-
-            protected abstract DataTemplate SelectTemplateInternal(object item, DependencyObject container);
-
-            public override DataTemplate SelectTemplate(object item, DependencyObject container)
-            {
-                if (!IsSelectFunctionAvailable)
-                {
-                    EventSource.Log.MissingSelectTemplateFunction("selectFunction", ErrorStrategy.ToString());
-
-                    return GetErrorValue(default(DataTemplate));
-                }
-
-                return SelectTemplateInternal(item, container);
-            }
-        }
-
-        sealed class Selector<I> : Selector
+        sealed class Selector<I> : LambdaConverters.Selector
         {
             readonly Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction;
 
@@ -51,7 +23,7 @@ namespace LambdaConverters
                 this.selectFunction = selectFunction;
             }
 
-            protected override DataTemplate SelectTemplateInternal(object item, DependencyObject container)
+            DataTemplate SelectTemplateInternal(object item, DependencyObject container)
             {
                 I inputValue;
                 try
@@ -68,6 +40,18 @@ namespace LambdaConverters
                 Debug.Assert(selectFunction != null);
 
                 return selectFunction(new TemplateSelectorArgs<I>(inputValue, container));
+            }
+
+            public override DataTemplate SelectTemplate(object item, DependencyObject container)
+            {
+                if (!IsSelectFunctionAvailable)
+                {
+                    EventSource.Log.MissingSelectTemplateFunction("selectFunction", ErrorStrategy.ToString());
+
+                    return GetErrorValue(default(DataTemplate));
+                }
+
+                return SelectTemplateInternal(item, container);
             }
         }
 
