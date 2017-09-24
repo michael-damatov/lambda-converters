@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LambdaConverters")]
-[assembly: AssemblyCopyright("© 2017 Michael Damatov.")]
+[assembly: AssemblyCopyright("© 2017 Michael Damatov, Dimitri Enns.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

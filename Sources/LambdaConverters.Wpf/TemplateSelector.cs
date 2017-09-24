@@ -17,15 +17,13 @@ namespace LambdaConverters
 
             SelectorErrorStrategy ErrorStrategy { get; }
 
-            bool IsSelectFunctionAvailable { get; }
-
             [Pure]
-            DataTemplate GetErrorValue(DataTemplate defaultValue)
+            DataTemplate GetErrorValue()
             {
                 switch (ErrorStrategy)
                 {
-                    case SelectorErrorStrategy.ReturnDefaultValue:
-                        return defaultValue;
+                    case SelectorErrorStrategy.ReturnNull:
+                        return null;
 
                     case SelectorErrorStrategy.ReturnNewEmptyDataTemplate:
                         return new DataTemplate();
@@ -40,7 +38,6 @@ namespace LambdaConverters
                 SelectorErrorStrategy errorStrategy)
             {
                 ErrorStrategy = errorStrategy;
-                IsSelectFunctionAvailable = selectFunction != null;
 
                 this.selectFunction = selectFunction;
             }
@@ -56,7 +53,7 @@ namespace LambdaConverters
                 {
                     EventSource.Log.UnableToCastToInputType(item?.GetType().Name ?? "null", typeof(I).Name, ErrorStrategy.ToString());
 
-                    return GetErrorValue(default(DataTemplate));
+                    return GetErrorValue();
                 }
 
                 Debug.Assert(selectFunction != null);
@@ -66,11 +63,11 @@ namespace LambdaConverters
 
             public override DataTemplate SelectTemplate(object item, DependencyObject container)
             {
-                if (!IsSelectFunctionAvailable)
+                if (this.selectFunction == null)
                 {
                     EventSource.Log.MissingSelectTemplateFunction("selectFunction", ErrorStrategy.ToString());
 
-                    return GetErrorValue(default(DataTemplate));
+                    return GetErrorValue();
                 }
 
                 return SelectTemplateInternal(item, container);
@@ -91,11 +88,11 @@ namespace LambdaConverters
         [NotNull]
         public static DataTemplateSelector Create<I>(
             Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction = null,
-            SelectorErrorStrategy errorStrategy = SelectorErrorStrategy.ReturnDefaultValue)
+            SelectorErrorStrategy errorStrategy = SelectorErrorStrategy.ReturnNull)
         {
             switch (errorStrategy)
             {
-                case SelectorErrorStrategy.ReturnDefaultValue:
+                case SelectorErrorStrategy.ReturnNull:
                 case SelectorErrorStrategy.ReturnNewEmptyDataTemplate:
                     break;
 

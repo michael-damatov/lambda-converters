@@ -1,7 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Data;
-
-namespace LambdaConverters
+﻿namespace LambdaConverters
 {
     /// <summary>
     /// Defines the selector error strategy.
@@ -11,7 +8,7 @@ namespace LambdaConverters
         /// <summary>
         /// Null is returned.
         /// </summary>
-        ReturnDefaultValue,
+        ReturnNull,
 
         /// <summary>
         /// A new and empty data template is returned.

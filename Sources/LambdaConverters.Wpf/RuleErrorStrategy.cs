@@ -8,9 +8,9 @@ namespace LambdaConverters
     public enum RuleErrorStrategy
     {
         /// <summary>
-        /// The default of <see cref="ValidationRule" /> is returned.
+        /// Null is returned.
         /// </summary>
-        ReturnDefaultValue,
+        ReturnNull,
 
         /// <summary>
         /// An invalid validation result is returned.

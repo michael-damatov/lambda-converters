@@ -20,21 +20,18 @@ namespace LambdaConverters
                 RuleErrorStrategy errorStrategy)
             {
                 ErrorStrategy = errorStrategy;
-                IsRuleFunctionAvailable = ruleFunction != null;
                 this.ruleFunction = ruleFunction;
             }
 
             RuleErrorStrategy ErrorStrategy { get; }
 
-            bool IsRuleFunctionAvailable { get; }
-
             [Pure]
-            ValidationResult GetErrorValue(ValidationResult defaultValue)
+            ValidationResult GetErrorValue()
             {
                 switch (ErrorStrategy)
                 {
-                    case RuleErrorStrategy.ReturnDefaultValue:
-                        return defaultValue;
+                    case RuleErrorStrategy.ReturnNull:
+                        return null;
 
                     case RuleErrorStrategy.ReturnInvalid:
                         return new ValidationResult(false, null);
@@ -58,7 +55,7 @@ namespace LambdaConverters
                 {
                     EventSource.Log.UnableToCastToRuleInputType(item?.GetType().Name ?? "null", typeof(I).Name, ErrorStrategy.ToString());
 
-                    return GetErrorValue(default(ValidationResult));
+                    return GetErrorValue();
                 }
 
                 Debug.Assert(ruleFunction != null);
@@ -68,11 +65,11 @@ namespace LambdaConverters
 
             public override ValidationResult Validate(object value, CultureInfo cultureInfo)
             {
-                if (!IsRuleFunctionAvailable)
+                if (this.ruleFunction == null)
                 {
                     EventSource.Log.MissingRuleFunction("ruleFunction", ErrorStrategy.ToString());
 
-                    return GetErrorValue(default(ValidationResult));
+                    return GetErrorValue();
                 }
 
                 return ValidateInternal(value, cultureInfo);
@@ -93,11 +90,11 @@ namespace LambdaConverters
         [NotNull]
         public static ValidationRule Create<I>(
             Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction = null,
-            RuleErrorStrategy errorStrategy = RuleErrorStrategy.ReturnDefaultValue)
+            RuleErrorStrategy errorStrategy = RuleErrorStrategy.ReturnNull)
         {
             switch (errorStrategy)
             {
-                case RuleErrorStrategy.ReturnDefaultValue:
+                case RuleErrorStrategy.ReturnNull:
                 case RuleErrorStrategy.ReturnInvalid:
                 case RuleErrorStrategy.ReturnValid:
                     break;
