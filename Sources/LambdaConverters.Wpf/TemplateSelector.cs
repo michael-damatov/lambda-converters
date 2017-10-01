@@ -51,7 +51,7 @@ namespace LambdaConverters
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
-                    EventSource.Log.UnableToCastToInputType(item?.GetType().Name ?? "null", typeof(I).Name, ErrorStrategy.ToString());
+                    EventSource.Log.UnableToCastToItemType(item?.GetType().Name ?? "null", typeof(I).Name, ErrorStrategy.ToString());
 
                     return GetErrorValue();
                 }
