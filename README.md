@@ -36,6 +36,84 @@ You're done! Just reference the converters with the `x:Static` expressions from 
 
 :bulb: *ReSharper users*: use the Extension Manager to install the external annotations for the library.
 
+## Lambda DataTemplateSelectors
+
+The library also allows to create `DataTemplateSelector` objects in the same convenient way as Converters. In order to define a Selector simply write a static field (or property) similar to this snippet:
+
+```csharp
+internal static class TemplateSelector
+{
+	public static DataTemplateSelector AlternatingText =
+		LambdaConverters.TemplateSelector.Create<int>(
+	        e => e.Item % 2 == 0
+	            ? (DataTemplate) ((FrameworkElement) e.Container)?.FindResource("BlackWhite")
+                : (DataTemplate) ((FrameworkElement) e.Container)?.FindResource("WhiteBlack"));
+}
+```
+Use your Lambda DataTemplateSelectors by referencing it with the `x:Static` markup extention:
+
+```xml
+<UserControl.Resources>
+    <DataTemplate x:Key="BlackWhite">
+        <TextBlock Text="{Binding}"
+                    Foreground="Black"
+                    Background="White" />
+    </DataTemplate>
+    <DataTemplate x:Key="WhiteBlack">
+        <TextBlock Text="{Binding}"
+                    Foreground="White"
+                    Background="Black" />
+    </DataTemplate>
+</UserControl.Resources>
+<DockPanel>
+    <ListBox ItemsSource="{Binding IntNumbers}"
+             ItemTemplateSelector="{x:Static s:TemplateSelector.AlternatingText}">
+    </ListBox>
+</DockPanel>
+```
+
+Tada! All even numbers from `IntNumbers` are displayed with black font and white background and the odd numbers get the inverse font and background colors.
+
+### Features
+- *strongly-typed* Selectors
+- resource declaration not needed, just use the `x:Static` expressions
+- separate class for each selector not needed anymore
+- full support for the remaining parameter `container`. For example, if you need to grab a `DataTemplate` from where the selector is use (see the example above).
+
+## Lambda ValidationRules
+
+Furthermore, you'll get Lambda ValidationRules on top. By now you know "the drill". First, define a `ValidationRule`object like this:
+
+```csharp
+public static class Rule
+{
+    public static ValidationRule IsNumericString =
+        LambdaConverters.Validator.Create<string>(
+            e => e.Value.ToCharArray().All(char.IsDigit)
+	                 ? ValidationResult.ValidResult
+                     : new ValidationResult(false, "Text has non-digit characters!"));
+}
+```
+And then reference your new rule in vour `View`:
+```xml
+<TextBox>
+    <TextBox.Text>
+        <Binding Path="Text" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <x:Static Member="r:Rule.IsNumericString"/>
+            </Binding.ValidationRules>
+        </Binding>
+    </TextBox.Text>
+</TextBox>
+```
+Now, you made sure that only strings which consists of digits are passed to your `ViewModel`.
+
+### Features
+- *strongly-typed* rules
+- resource declaration not needed, just use the `x:Static` expressions
+- separate class for each rule not needed anymore
+- full support for the remaining parameter `culture`
+
 ## Installation
 Use the NuGet package manager to install the package.
 

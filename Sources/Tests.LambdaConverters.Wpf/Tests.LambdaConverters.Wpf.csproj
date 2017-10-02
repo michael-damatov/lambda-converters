@@ -66,6 +66,8 @@
     <Compile Include="AssemblyInfoTests.cs" />
     <Compile Include="MultiValueConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateSelectorTests.cs" />
+    <Compile Include="ValidationRuleTests.cs" />
     <Compile Include="ValueConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
