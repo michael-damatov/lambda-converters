@@ -1,27 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LambdaConverters</RootNamespace>
-    <AssemblyName>LambdaConverters.Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworks>net46;net45</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\LambdaConverters.Wpf.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -30,8 +14,6 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\LambdaConverters.Wpf.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
@@ -57,34 +39,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter.cs" />
-    <Compile Include="RuleErrorStrategy.cs" />
-    <Compile Include="SelectorErrorStrategy.cs" />
-    <Compile Include="ConverterErrorStrategy.cs" />
-    <Compile Include="EventSource.cs" />
-    <Compile Include="MultiValueConverter.cs" />
-    <Compile Include="MultiValueConverterArgs[T,P].cs" />
-    <Compile Include="MultiValueConverterArgs[T,P].IEquatable[MultiValueConverterArgs[T,P]].cs" />
-    <Compile Include="MultiValueConverterArgs[T].cs" />
-    <Compile Include="MultiValueConverterArgs[T].IEquatable[MultiValueConverterArgs[T]].cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validator.cs" />
-    <Compile Include="TemplateSelector.cs" />
-    <Compile Include="ValueConverter.cs" />
-    <Compile Include="ValidationRuleArgs[T].cs" />
-    <Compile Include="ValueConverterArgs[T,P].cs" />
-    <Compile Include="ValueConverterArgs[T,P].IEquatable[ValueConverterArgs[T,P]].cs" />
-    <Compile Include="TemplateSelectorArgs[T].cs" />
-    <Compile Include="ValueConverterArgs[T].cs" />
-    <Compile Include="TemplateSelectorArgs[T].IEquatable[TemplateSelectorArgs[T]].cs" />
-    <Compile Include="ValidationRuleArgs[T].IEquatable[ValidationRuleArgs[T]].cs" />
-    <Compile Include="ValueConverterArgs[T].IEquatable[ValueConverterArgs[T]].cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\LambdaConverters.public.snk" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
