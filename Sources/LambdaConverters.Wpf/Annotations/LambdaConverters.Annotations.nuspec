@@ -15,6 +15,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="Annotations\**" target="DotFiles\Extensions\LambdaConverters.Annotations\annotations" />
+        <file src="**" target="DotFiles\Extensions\LambdaConverters.Annotations\annotations" />
     </files>
 </package>

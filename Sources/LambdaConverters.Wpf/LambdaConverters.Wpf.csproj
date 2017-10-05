@@ -26,21 +26,38 @@
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>true</DelaySign>
+    <PackageId>LambdaConverters</PackageId>
+    <Version>3.0.0</Version>
+    <Authors>Michael Damatov, Dimitri Enns</Authors>
+    <Company />
+    <Product />
+    <Description>The library allows to create IValueConverter, IMultiValueConverter, DataTemplateSelector, and ValidationRule objects with the most convenient syntax available, ideally, using the lambda expressions.</Description>
+    <PackageLicenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/michael-damatov/lambda-converters</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/michael-damatov/lambda-converters</RepositoryUrl>
+    <PackageTags>lambda expression converter wpf strongly typed value multi data template selector validation rule</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Properties\LambdaConverters.public.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.0.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Annotations\LambdaConverters.Annotations.nuspec">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Annotations\LambdaConverters.Wpf\1.0.0.0.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -49,4 +66,17 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="ResignAssemblies" AfterTargets="CopyFilesToOutputDirectory" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <GetFrameworkSdkPath>
+      <Output TaskParameter="Path" PropertyName="FrameworkSdkPath" />
+    </GetFrameworkSdkPath>
+    <PropertyGroup>
+      <SnPath>$([System.IO.Directory]::GetFiles("$(FrameworkSdkPath)", "sn.exe", SearchOption.AllDirectories)[0])</SnPath>
+      <SnkPath>\\Files\Projects\Keys\LambdaConverters\LambdaConverters.snk</SnkPath>
+    </PropertyGroup>
+    <Exec Command="&quot;$(SnPath)&quot; -R &quot;$(TargetPath)&quot; &quot;$(SnkPath)&quot;" />
+  </Target>
+  <Target Name="GenegateAnnotationsPackage" AfterTargets="GenerateNuspec">
+    <Exec Command="&quot;$(SolutionDir)NuGet.exe&quot; pack &quot;$(MSBuildProjectDirectory)\Annotations\LambdaConverters.Annotations.nuspec&quot; -OutputDirectory &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)&quot; -NoPackageAnalysis" />
+  </Target>
 </Project>
