@@ -15,12 +15,13 @@ namespace LambdaConverters.Deployment
         {
             try
             {
-                string assemblyPath;
+                string assemblyPath45;
+                string assemblyPath46;
                 bool isReleaseBuild;
                 string nugetPath;
                 string nuspecPath;
                 string nuspecAnnotationsPath;
-                GetPaths(out assemblyPath, out isReleaseBuild, out nugetPath, out nuspecPath, out nuspecAnnotationsPath);
+                GetPaths(out assemblyPath45, out assemblyPath46, out isReleaseBuild, out nugetPath, out nuspecPath, out nuspecAnnotationsPath);
 
                 if (isReleaseBuild)
                 {
@@ -30,11 +31,11 @@ namespace LambdaConverters.Deployment
                     }
 
                     var snkPath = args[0];
-                    ResignAssembly(assemblyPath, snkPath);
+                    ResignAssembly(assemblyPath45, assemblyPath46, snkPath);
                 }
 
                 string packageFileName;
-                UpdateNuspec(assemblyPath, nuspecPath, out packageFileName);
+                UpdateNuspec(assemblyPath45, assemblyPath46, nuspecPath, out packageFileName);
 
                 BuildPackages(nugetPath, nuspecPath, nuspecAnnotationsPath);
 
@@ -56,7 +57,8 @@ namespace LambdaConverters.Deployment
 
         [Pure]
         static void GetPaths(
-            [NotNull] out string assemblyPath,
+            [NotNull] out string assemblyPath45,
+            [NotNull] out string assemblyPath46,
             out bool isReleaseBuild,
             [NotNull] out string nugetPath,
             [NotNull] out string nuspecPath,
@@ -76,14 +78,16 @@ namespace LambdaConverters.Deployment
 
             nugetPath = Path.Combine(solutionDirectory, "NuGet.exe");
 
-            assemblyPath = Path.Combine(solutionDirectory, "LambdaConverters.Wpf", "bin", executionDirectory, "LambdaConverters.Wpf.dll");
+            assemblyPath45 = Path.Combine(solutionDirectory, "LambdaConverters.Wpf", "bin", executionDirectory, "net45", "LambdaConverters.Wpf.dll");
+
+            assemblyPath46 = Path.Combine(solutionDirectory, "LambdaConverters.Wpf", "bin", executionDirectory, "net46", "LambdaConverters.Wpf.dll");
 
             nuspecPath = Path.Combine(executionDirectoryPath, "LambdaConverters.nuspec");
 
             nuspecAnnotationsPath = Path.Combine(executionDirectoryPath, "LambdaConverters.Annotations.nuspec");
         }
 
-        static void ResignAssembly([NotNull] string assemblyPath, [NotNull] string snkPath)
+        static void ResignAssembly([NotNull] string assemblyPath45, string assemblyPath46, [NotNull] string snkPath)
         {
             Console.WriteLine("Resigning assembly...");
 
@@ -91,14 +95,16 @@ namespace LambdaConverters.Deployment
 
             Console.WriteLine($"Tool path: {Settings.Default.SnPath}");
 
-            RunConsoleApplication($"\"{Settings.Default.SnPath}\"", $"-R \"{assemblyPath}\" \"{snkPath}\"");
+            RunConsoleApplication($"\"{Settings.Default.SnPath}\"", $"-R \"{assemblyPath45}\" \"{snkPath}\"");
+
+            RunConsoleApplication($"\"{Settings.Default.SnPath}\"", $"-R \"{assemblyPath46}\" \"{snkPath}\"");
         }
 
-        static void UpdateNuspec([NotNull] string assemblyPath, [NotNull] string nuspecPath, [NotNull] out string packageFileName)
+        static void UpdateNuspec([NotNull] string assemblyPath45, string assemblyPath46, [NotNull] string nuspecPath, [NotNull] out string packageFileName)
         {
             Console.Write("Updating nuspec...");
 
-            var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
+            var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath45);
             Debug.Assert(assembly != null);
 
             var nuspec = XDocument.Load(nuspecPath);
@@ -112,14 +118,18 @@ namespace LambdaConverters.Deployment
             Debug.Assert(versionElement != null);
             Debug.Assert(fileVersionAttributeData != null);
             Debug.Assert(fileVersionAttributeData.ConstructorArguments[0].Value is string);
-            versionElement.Value = (string)fileVersionAttributeData.ConstructorArguments[0].Value;
+            //versionElement.Value = (string)fileVersionAttributeData.ConstructorArguments[0].Value;
 
-            const string target = @"lib\net46";
+            const string targetNet45 = @"lib\net45";
+            const string targetNet46 = @"lib\net46";
             nuspec.Root.Element("files")?
                 .Add(
-                    new XElement("file", new XAttribute("src", assemblyPath), new XAttribute("target", target)),
-                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath, "pdb")), new XAttribute("target", target)),
-                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath, "xml")), new XAttribute("target", target)));
+                    new XElement("file", new XAttribute("src", assemblyPath45), new XAttribute("target", targetNet45)),
+                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath45, "pdb")), new XAttribute("target", targetNet45)),
+                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath45, "xml")), new XAttribute("target", targetNet45)),
+                    new XElement("file", new XAttribute("src", assemblyPath46), new XAttribute("target", targetNet46)),
+                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath46, "pdb")), new XAttribute("target", targetNet46)),
+                    new XElement("file", new XAttribute("src", Path.ChangeExtension(assemblyPath46, "xml")), new XAttribute("target", targetNet46)));
 
             packageFileName = $"{(string)metadataElement.Element("id")}.{(string)metadataElement.Element("version")}.nupkg";
 
