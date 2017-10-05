@@ -30,7 +30,7 @@ namespace Tests.Shared
                     string.Format(
                         "Missing the {0} attribute in the {1} assembly.",
                         GetAttributeName<AssemblyCopyrightAttribute>(),
-                        Path.GetFileName(typeof(Version).Assembly.Location)));
+                        Path.GetFileName(assembly.Location)));
             }
 
             if (copyrightAttribute.Copyright == null)
@@ -40,7 +40,7 @@ namespace Tests.Shared
                         "The '{0}' property of the {1} attribute in the {2} assembly is null.",
                         nameof(AssemblyCopyrightAttribute.Copyright),
                         GetAttributeName<AssemblyCopyrightAttribute>(),
-                        Path.GetFileName(typeof(Version).Assembly.Location)));
+                        Path.GetFileName(assembly.Location)));
             }
 
             if (copyrightAttribute.Copyright.IndexOf(DateTime.Today.Year.ToString(), StringComparison.CurrentCultureIgnoreCase) == -1)
@@ -50,7 +50,7 @@ namespace Tests.Shared
                         "The '{0}' property of the {1} attribute in the {2} assembly does not contain the current year.",
                         nameof(AssemblyCopyrightAttribute.Copyright),
                         GetAttributeName<AssemblyCopyrightAttribute>(),
-                        Path.GetFileName(typeof(Version).Assembly.Location)));
+                        Path.GetFileName(assembly.Location)));
             }
         }
     }
