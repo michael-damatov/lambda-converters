@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace LambdaConverters
+﻿namespace LambdaConverters
 {
     /// <summary>
     /// Defines the validation rule error strategy.

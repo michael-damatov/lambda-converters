@@ -11,7 +11,7 @@ namespace LambdaConverters
     /// </summary>
     public static class TemplateSelector
     {
-        sealed class Selector<I> : System.Windows.Controls.DataTemplateSelector
+        sealed class Selector<I> : DataTemplateSelector
         {
             readonly Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction;
 
@@ -63,7 +63,7 @@ namespace LambdaConverters
 
             public override DataTemplate SelectTemplate(object item, DependencyObject container)
             {
-                if (this.selectFunction == null)
+                if (selectFunction == null)
                 {
                     EventSource.Log.MissingSelectTemplateFunction("selectFunction", ErrorStrategy.ToString());
 

@@ -11,7 +11,7 @@ namespace LambdaConverters
     /// </summary>
     public static class Validator
     {
-        sealed class Rule<I> : System.Windows.Controls.ValidationRule
+        sealed class Rule<I> : ValidationRule
         {
             readonly Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction;
 
@@ -65,7 +65,7 @@ namespace LambdaConverters
 
             public override ValidationResult Validate(object value, CultureInfo cultureInfo)
             {
-                if (this.ruleFunction == null)
+                if (ruleFunction == null)
                 {
                     EventSource.Log.MissingRuleFunction("ruleFunction", ErrorStrategy.ToString());
 
