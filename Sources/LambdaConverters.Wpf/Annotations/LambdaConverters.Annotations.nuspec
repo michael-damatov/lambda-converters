@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>LambdaConverters.Annotations</id>
-        <version>1.0.0</version>
+        <version>3.0.0</version>
         <title>Lambda Converters Annotations</title>
         <authors>Michael Damatov</authors>
         <description>Annotations for the Lambda Converters</description>

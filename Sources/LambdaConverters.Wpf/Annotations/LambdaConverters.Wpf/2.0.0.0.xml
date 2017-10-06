@@ -1,4 +1,4 @@
-<assembly name="LambdaConverters.Wpf, Version=1.0.0.0">
+<assembly name="LambdaConverters.Wpf, Version=2.0.0.0">
   <member name="M:LambdaConverters.MultiValueConverter.Create``2(System.Func{LambdaConverters.MultiValueConverterArgs{``0},``1},System.Func{LambdaConverters.ValueConverterArgs{``1},System.Collections.Generic.IEnumerable{``0}},LambdaConverters.ConverterErrorStrategy)">
     <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
     <attribute ctor="M:JetBrains.Annotations.NotNullAttribute.#ctor" />
