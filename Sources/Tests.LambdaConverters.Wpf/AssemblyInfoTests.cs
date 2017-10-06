@@ -38,9 +38,7 @@ namespace Tests.LambdaConverters.Wpf
 
             var fileVersionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
 
-            Assert.AreEqual(
-                new Version(assemblyVersion.Major, assemblyVersion.Minor, assemblyVersion.Build),
-                new Version(fileVersionAttribute.Version));
+            Assert.AreEqual(assemblyVersion, new Version(fileVersionAttribute.Version));
         }
     }
 }

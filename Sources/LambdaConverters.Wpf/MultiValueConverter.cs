@@ -175,6 +175,8 @@ namespace LambdaConverters
                     }
                 }
 
+                Debug.Assert(convertFunction != null);
+
                 return convertFunction(new MultiValueConverterArgs<I>(new ReadOnlyCollection<I>(inputValues), culture));
             }
 
@@ -256,6 +258,8 @@ namespace LambdaConverters
                         return GetErrorValue(default(O));
                     }
                 }
+
+                Debug.Assert(convertFunction != null);
 
                 return convertFunction(new MultiValueConverterArgs<I, P>(new ReadOnlyCollection<I>(inputValues), parameterValue, culture));
             }

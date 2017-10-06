@@ -71,8 +71,7 @@ namespace Tests.Shared
 
         public static void AreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> equalityComparer = null)
         {
-            string reason;
-            if (!AreEqual(expected, actual, equalityComparer, out reason))
+            if (!AreEqual(expected, actual, equalityComparer, out var reason))
             {
                 throw new AssertFailedException(string.Format("{0} failed. {1}", nameof(AreEqual), reason));
             }
