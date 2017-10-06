@@ -1,6 +1,8 @@
-# Lambda Converters [![NuGet](https://img.shields.io/nuget/v/LambdaConverters.svg)](https://www.nuget.org/packages/LambdaConverters) [![ReSharper-Gallery](https://img.shields.io/badge/resharper--gallery-v1.0.0-lightgrey.svg)](https://resharper-plugins.jetbrains.com/packages/LambdaConverters.Annotations)
+# Lambda Converters [![NuGet](https://img.shields.io/nuget/v/LambdaConverters.svg)](https://www.nuget.org/packages/LambdaConverters) [![ReSharper-Gallery](https://img.shields.io/badge/resharper--gallery-v3.0.0-lightgrey.svg)](https://resharper-plugins.jetbrains.com/packages/LambdaConverters.Annotations)
 
-The library allows to create `IValueConverter` and `IMultiValueConverter` objects with the most convenient syntax available, ideally, using the lambda expressions.
+The library allows to create `IValueConverter`, `IMultiValueConverter`, `DataTemplateSelector`, and `ValidationRule` objects with the most convenient syntax available, ideally, using the lambda expressions.
+
+## Lambda Value Converters
 
 First create a (static) class and define your converters as static fields (or properties):
 
@@ -26,7 +28,7 @@ You're done! Just reference the converters with the `x:Static` expressions from 
 <TextBlock Text="{Binding model.Heading, Converter={x:Static c:Converters.ToUpperCase}}" />
 ```
 
-## Features
+### Features
 - *strongly-typed* converters
 - resource declaration not needed, just use the `x:Static` expressions
 - separate class for each converter not needed anymore
@@ -34,35 +36,29 @@ You're done! Just reference the converters with the `x:Static` expressions from 
 - full support for the remaining parameters of the `Convert` and `ConvertBack` methods: the `culture` and the `parameter` (also strongly-typed) are accessible as well
 - if the conversion fails due to unexpected value types the optional [error strategy](Sources/LambdaConverters.Wpf/ConverterErrorStrategy.cs) can be specified
 
-:bulb: *ReSharper users*: use the Extension Manager to install the external annotations for the library.
+## Lambda Data Template Selectors
 
-## Lambda DataTemplateSelectors
-
-The library also allows to create `DataTemplateSelector` objects in the same convenient way as Converters. In order to define a Selector simply write a static field (or property) similar to this snippet:
+The library also allows to create `DataTemplateSelector` objects in the same convenient way as value converters. In order to define a selector simply write a static field (or property) similar to this snippet:
 
 ```csharp
 internal static class TemplateSelector
 {
-	public static DataTemplateSelector AlternatingText =
-		LambdaConverters.TemplateSelector.Create<int>(
-	        e => e.Item % 2 == 0
-	            ? (DataTemplate) ((FrameworkElement) e.Container)?.FindResource("BlackWhite")
+    public static DataTemplateSelector AlternatingText =
+        LambdaConverters.TemplateSelector.Create<int>(
+            e => e.Item % 2 == 0
+                ? (DataTemplate) ((FrameworkElement) e.Container)?.FindResource("BlackWhite")
                 : (DataTemplate) ((FrameworkElement) e.Container)?.FindResource("WhiteBlack"));
 }
 ```
-Use your Lambda DataTemplateSelectors by referencing it with the `x:Static` markup extention:
+Use your Lambda DataTemplateSelectors by referencing it with the `x:Static` markup extention (assuming that `s` is the namespace definition for the `TemplateSelector` class):
 
 ```xml
 <UserControl.Resources>
     <DataTemplate x:Key="BlackWhite">
-        <TextBlock Text="{Binding}"
-                    Foreground="Black"
-                    Background="White" />
+        <TextBlock Text="{Binding}" Foreground="Black" Background="White" />
     </DataTemplate>
     <DataTemplate x:Key="WhiteBlack">
-        <TextBlock Text="{Binding}"
-                    Foreground="White"
-                    Background="Black" />
+        <TextBlock Text="{Binding}" Foreground="White" Background="Black" />
     </DataTemplate>
 </UserControl.Resources>
 <DockPanel>
@@ -80,7 +76,7 @@ Tada! All even numbers from `IntNumbers` are displayed with black font and white
 - separate class for each selector not needed anymore
 - full support for the remaining parameter `container`. For example, if you need to grab a `DataTemplate` from where the selector is use (see the example above).
 
-## Lambda ValidationRules
+## Lambda Validation Rules
 
 Furthermore, you'll get Lambda ValidationRules on top. By now you know "the drill". First, define a `ValidationRule`object like this:
 
@@ -89,12 +85,12 @@ public static class Rule
 {
     public static ValidationRule IsNumericString =
         LambdaConverters.Validator.Create<string>(
-            e => e.Value.ToCharArray().All(char.IsDigit)
-	                 ? ValidationResult.ValidResult
-                     : new ValidationResult(false, "Text has non-digit characters!"));
+            e => e.Value.All(char.IsDigit)
+                ? ValidationResult.ValidResult
+                : new ValidationResult(false, "Text has non-digit characters!"));
 }
 ```
-And then reference your new rule in vour `View`:
+And then reference your new rule in vour `View` (assuming that `r` is the namespace definition for the `Rule` class):
 ```xml
 <TextBox>
     <TextBox.Text>
@@ -116,6 +112,8 @@ Now, you made sure that only strings which consists of digits are passed to your
 
 ## Installation
 Use the NuGet package manager to install the package.
+
+:bulb: *ReSharper users*: use the Extension Manager to install the external annotations for the library.
 
 ## Limitations
 The library currently supports the WPF only.
