@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
 namespace LambdaConverters
 {
@@ -17,7 +16,7 @@ namespace LambdaConverters
             public const EventKeywords Rules = (EventKeywords)0x10;
         }
 
-        [NotNull]
+        [JetBrains.Annotations.NotNull]
         public static readonly EventSource Log = new EventSource();
 
         EventSource() { }
@@ -33,8 +32,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void MissingConvertFunction(
@@ -63,8 +62,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void MissingConvertBackFunction(
@@ -93,8 +92,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NonAssignableTargetType(
@@ -125,8 +124,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NonAssignableTargetTypeForBackConversion(
@@ -157,8 +156,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NonAssignableTargetTypeAtPositionForBackConversion(
@@ -191,8 +190,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NullValues(
@@ -219,8 +218,8 @@ namespace LambdaConverters
             Level = EventLevel.Informational,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NonRequestedTargetType(
@@ -245,8 +244,8 @@ namespace LambdaConverters
             Level = EventLevel.Informational,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void NonRequestedTargetTypeAtPosition(
@@ -273,8 +272,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void ParameterInParameterlessConverter(
@@ -303,8 +302,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void ParameterInParameterlessConverterForBackConversion(
@@ -333,8 +332,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToInputType(
@@ -365,8 +364,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastAtPositionToInputType(
@@ -399,8 +398,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToOutputType(
@@ -431,8 +430,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToParameterType(
@@ -463,8 +462,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Converters,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToParameterTypeForBackConversion(
@@ -495,8 +494,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Selectors,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void MissingSelectTemplateFunction(
@@ -525,8 +524,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Selectors,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToItemType(
@@ -557,8 +556,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Rules,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void MissingRuleFunction(
@@ -587,8 +586,8 @@ namespace LambdaConverters
             Level = EventLevel.Warning,
             Keywords = Keywords.Rules,
             Opcode = EventOpcode.Info
-#if NET46
-            ,Channel = EventChannel.Operational
+#if NET46 || NETCOREAPP
+            , Channel = EventChannel.Operational
 #endif
         )]
         public void UnableToCastToRuleInputType(

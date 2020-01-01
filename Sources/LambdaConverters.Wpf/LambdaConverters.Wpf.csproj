@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="15.0">
   <PropertyGroup>
     <ProjectGuid>{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}</ProjectGuid>
     <RootNamespace>LambdaConverters</RootNamespace>
-    <TargetFrameworks>net46;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net46;net45</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\LambdaConverters.Wpf.xml</DocumentationFile>
@@ -20,6 +20,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
