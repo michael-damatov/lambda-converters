@@ -8,7 +8,7 @@
     <RootNamespace>LambdaConverters</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>LambdaConverters</PackageId>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <Authors>Michael Damatov, Dimitri Enns, Alex Helms</Authors>
     <Description>The library allows to create IValueConverter, IMultiValueConverter, DataTemplateSelector, and ValidationRule objects with the most convenient syntax available, ideally, using the lambda expressions.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
