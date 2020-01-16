@@ -25,7 +25,7 @@ namespace LambdaConverters
         public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Item) ^ (Container?.GetHashCode() ?? 0);
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => obj is TemplateSelectorArgs<T> && Equals((TemplateSelectorArgs<T>)obj);
+        public override bool Equals(object obj) => obj is TemplateSelectorArgs<T> args && Equals(args);
 
         /// <inheritdoc />
         public bool Equals(TemplateSelectorArgs<T> other) => this == other;

@@ -14,8 +14,7 @@ namespace Tests.Shared
         [JetBrains.Annotations.NotNull]
         static E Handle<E>([JetBrains.Annotations.NotNull] E exception, string expectedParamName = null) where E : Exception
         {
-            var argumentException = exception as ArgumentException;
-            if (argumentException != null)
+            if (exception is ArgumentException argumentException)
             {
                 if (string.Equals(expectedParamName ?? "", argumentException.ParamName ?? "", StringComparison.Ordinal))
                 {

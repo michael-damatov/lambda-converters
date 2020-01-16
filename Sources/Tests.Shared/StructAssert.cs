@@ -74,7 +74,7 @@ namespace Tests.Shared
             var type = typeof(T);
 
             type.AssertOverridesMethod(nameof(object.Equals), new[] { typeof(object) }, typeof(bool));
-            type.AssertOverridesMethod(nameof(GetHashCode), new Type[] { }, typeof(int));
+            type.AssertOverridesMethod(nameof(GetHashCode), ArrayUtils.GetEmpty<Type>(), typeof(int));
 
             type.AssertHasStaticMethod("op_Equality", new[] { type, type }, typeof(bool), true);
             type.AssertHasStaticMethod("op_Inequality", new[] { type, type }, typeof(bool), true);

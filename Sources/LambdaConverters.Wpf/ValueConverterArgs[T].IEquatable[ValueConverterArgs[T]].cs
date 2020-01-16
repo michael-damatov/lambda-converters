@@ -25,7 +25,7 @@ namespace LambdaConverters
         public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Value) ^ (Culture?.GetHashCode() ?? 0);
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => obj is ValueConverterArgs<T> && Equals((ValueConverterArgs<T>)obj);
+        public override bool Equals(object obj) => obj is ValueConverterArgs<T> args && Equals(args);
 
         /// <inheritdoc />
         public bool Equals(ValueConverterArgs<T> other) => this == other;

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net46;net45</TargetFrameworks>
     <UseWPF>true</UseWPF>
+    <RootNamespace>LambdaConverters</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>LambdaConverters</PackageId>
     <Version>3.0.0</Version>

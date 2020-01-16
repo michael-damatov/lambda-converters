@@ -30,7 +30,7 @@ namespace LambdaConverters
             => (values?.Aggregate(0, (a, item) => a ^ EqualityComparer<T>.Default.GetHashCode(item)) ?? 0) ^ (Culture?.GetHashCode() ?? 0);
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => obj is MultiValueConverterArgs<T> && Equals((MultiValueConverterArgs<T>)obj);
+        public override bool Equals(object obj) => obj is MultiValueConverterArgs<T> args && Equals(args);
 
         /// <inheritdoc />
         public bool Equals(MultiValueConverterArgs<T> other) => this == other;

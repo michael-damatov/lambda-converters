@@ -93,9 +93,9 @@ namespace Tests.LambdaConverters.Wpf
                 "1");
 
             StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
-            StructAssert.AreNotEqual(arg, default(ValidationRuleArgs<int>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default, (x, y) => x == y, (x, y) => x != y);
 
-            new HashSet<ValidationRuleArgs<int>> { default(ValidationRuleArgs<int>), arg, arg };
+            new HashSet<ValidationRuleArgs<int>> { default, arg, arg };
         }
     }
 }

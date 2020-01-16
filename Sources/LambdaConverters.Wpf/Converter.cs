@@ -7,7 +7,7 @@ namespace LambdaConverters
 {
     internal abstract class Converter
     {
-        internal Converter(
+        protected Converter(
             ConverterErrorStrategy errorStrategy,
             object defaultInputTypeValue,
             object defaultOutputTypeValue,
