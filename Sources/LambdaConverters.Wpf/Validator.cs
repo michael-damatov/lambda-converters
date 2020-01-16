@@ -13,43 +13,33 @@ namespace LambdaConverters
     {
         sealed class Rule<I> : ValidationRule
         {
-            readonly Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction;
+            readonly Func<ValidationRuleArgs<I>, ValidationResult?>? ruleFunction;
 
-            internal Rule(
-                Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction,
-                RuleErrorStrategy errorStrategy)
+            internal Rule(Func<ValidationRuleArgs<I>, ValidationResult?>? ruleFunction, RuleErrorStrategy errorStrategy)
             {
-                ErrorStrategy = errorStrategy;
                 this.ruleFunction = ruleFunction;
+
+                ErrorStrategy = errorStrategy;
             }
 
             RuleErrorStrategy ErrorStrategy { get; }
 
             [Pure]
-            ValidationResult GetErrorValue()
-            {
-                switch (ErrorStrategy)
+            ValidationResult? GetErrorValue()
+                => ErrorStrategy switch
                 {
-                    case RuleErrorStrategy.ReturnNull:
-                        return null;
+                    RuleErrorStrategy.ReturnNull => null,
+                    RuleErrorStrategy.ReturnInvalid => new ValidationResult(false, null),
+                    RuleErrorStrategy.ReturnValid => new ValidationResult(true, null),
+                    _ => throw new NotSupportedException()
+                };
 
-                    case RuleErrorStrategy.ReturnInvalid:
-                        return new ValidationResult(false, null);
-
-                    case RuleErrorStrategy.ReturnValid:
-                        return new ValidationResult(true, null);
-
-                    default:
-                        throw new NotSupportedException();
-                }
-            }
-
-            ValidationResult ValidateInternal(object item, CultureInfo cultureInfo)
+            ValidationResult? ValidateInternal(object? item, CultureInfo? cultureInfo)
             {
                 I inputValue;
                 try
                 {
-                    inputValue = (I)item;
+                    inputValue = (I)item!;
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
@@ -60,10 +50,10 @@ namespace LambdaConverters
 
                 Debug.Assert(ruleFunction != null);
 
-                return ruleFunction(new ValidationRuleArgs<I>(inputValue, cultureInfo));
+                return ruleFunction!(new ValidationRuleArgs<I>(inputValue, cultureInfo));
             }
 
-            public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+            public override ValidationResult? Validate(object? value, CultureInfo? cultureInfo)
             {
                 if (ruleFunction == null)
                 {
@@ -87,9 +77,8 @@ namespace LambdaConverters
         ///     <paramref name="errorStrategy"/> is not a valid <see cref="RuleErrorStrategy"/> value.
         /// </exception>
         [Pure]
-        [NotNull]
         public static ValidationRule Create<I>(
-            Func<ValidationRuleArgs<I>, ValidationResult> ruleFunction = null,
+            Func<ValidationRuleArgs<I>, ValidationResult?>? ruleFunction = null,
             RuleErrorStrategy errorStrategy = RuleErrorStrategy.ReturnNull)
         {
             switch (errorStrategy)

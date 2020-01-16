@@ -9,7 +9,6 @@ namespace Tests.Shared
     [ExcludeFromCodeCoverage]
     internal static class AssemblyAssert
     {
-        [JetBrains.Annotations.NotNull]
         static string GetAttributeName<A>() where A : Attribute
         {
             var name = typeof(A).Name;
@@ -19,7 +18,7 @@ namespace Tests.Shared
                 name.EndsWith(nameof(Attribute), StringComparison.Ordinal) ? name.Remove(name.Length - nameof(Attribute).Length) : name);
         }
 
-        public static void AreAttributesValid([JetBrains.Annotations.NotNull] Assembly assembly)
+        public static void AreAttributesValid(Assembly assembly)
         {
             var copyrightAttribute = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
 

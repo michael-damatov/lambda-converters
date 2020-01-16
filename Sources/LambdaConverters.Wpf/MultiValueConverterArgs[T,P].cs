@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using JetBrains.Annotations;
 
 namespace LambdaConverters
 {
@@ -11,9 +11,9 @@ namespace LambdaConverters
     /// <typeparam name="P">The parameter type.</typeparam>
     public partial struct MultiValueConverterArgs<T, P>
     {
-        readonly IReadOnlyList<T> values;
+        readonly IReadOnlyList<T>? values;
 
-        internal MultiValueConverterArgs([NotNull] IReadOnlyList<T> values, P parameter, CultureInfo culture)
+        internal MultiValueConverterArgs(IReadOnlyList<T> values, P parameter, CultureInfo? culture)
         {
             this.values = values;
 
@@ -24,8 +24,12 @@ namespace LambdaConverters
         /// <summary>
         /// Gets the values.
         /// </summary>
-        [NotNull]
-        public IReadOnlyList<T> Values => values ?? new List<T>().AsReadOnly();
+        public IReadOnlyList<T> Values => values ??
+#if NET45
+            new T[] { };
+#else
+            Array.Empty<T>();
+#endif
 
         /// <summary>
         /// Gets the parameter.
@@ -35,6 +39,6 @@ namespace LambdaConverters
         /// <summary>
         /// Gets the culture.
         /// </summary>
-        public CultureInfo Culture { get; }
+        public CultureInfo? Culture { get; }
     }
 }

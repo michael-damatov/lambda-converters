@@ -13,6 +13,7 @@ namespace Tests.LambdaConverters.Wpf
     {
         [TestMethod]
         [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+        [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
         public void NoFunctions()
         {
             // invalid error strategy
@@ -21,7 +22,7 @@ namespace Tests.LambdaConverters.Wpf
                 "errorStrategy");
 
             // with ConverterErrorStrategy.ReturnDefaultValue (default)
-            Assert.AreEqual(null, TemplateSelector.Create<int>().SelectTemplate(1, null));
+            Assert.AreEqual<DataTemplate?>(null, TemplateSelector.Create<int>().SelectTemplate(1, null));
 
             // with ConverterErrorStrategy.ReturnNewEmptyDataTemplate
             DataTemplate result = TemplateSelector.Create<int>(errorStrategy: SelectorErrorStrategy.ReturnNewEmptyDataTemplate).SelectTemplate(1, null);

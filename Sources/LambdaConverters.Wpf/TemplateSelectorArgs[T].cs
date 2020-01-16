@@ -8,7 +8,7 @@ namespace LambdaConverters
     /// <typeparam name="T">The item type.</typeparam>
     public partial struct TemplateSelectorArgs<T>
     {
-        internal TemplateSelectorArgs(T item, DependencyObject container)
+        internal TemplateSelectorArgs(T item, DependencyObject? container)
         {
             Item = item;
             Container = container;
@@ -22,6 +22,6 @@ namespace LambdaConverters
         /// <summary>
         /// Gets the container.
         /// </summary>
-        public DependencyObject Container { get; }
+        public DependencyObject? Container { get; }
     }
 }

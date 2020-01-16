@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Shared
@@ -9,11 +8,7 @@ namespace Tests.Shared
     [ExcludeFromCodeCoverage]
     internal static class StructAssert
     {
-        static void AssertOverridesMethod(
-            [JetBrains.Annotations.NotNull] this Type type,
-            [JetBrains.Annotations.NotNull] string name,
-            [JetBrains.Annotations.NotNull] [ItemNotNull] Type[] parameterTypes,
-            Type returnType)
+        static void AssertOverridesMethod(this Type type, string name, Type[] parameterTypes, Type? returnType)
         {
             var method = type.GetMethod(
                 name,
@@ -21,19 +16,14 @@ namespace Tests.Shared
                 null,
                 CallingConventions.Any,
                 parameterTypes,
-                null);
+                null)!;
 
             Assert.IsNotNull(method);
             Assert.AreEqual(returnType, method.ReturnType);
             Assert.IsTrue(method.IsVirtual);
         }
 
-        static void AssertHasStaticMethod(
-            [JetBrains.Annotations.NotNull] this Type type,
-            [JetBrains.Annotations.NotNull] string name,
-            [JetBrains.Annotations.NotNull] [ItemNotNull] Type[] parameterTypes,
-            Type returnType,
-            bool isOperator)
+        static void AssertHasStaticMethod(this Type type, string name, Type[] parameterTypes, Type? returnType, bool isOperator)
         {
             var method = type.GetMethod(
                 name,
@@ -44,15 +34,11 @@ namespace Tests.Shared
                 null);
 
             Assert.IsNotNull(method);
-            Assert.AreEqual(returnType, method.ReturnType);
+            Assert.AreEqual(returnType, method!.ReturnType);
             Assert.AreEqual(isOperator, method.IsSpecialName);
         }
 
-        static void AssertDoesNotHaveStaticMethod(
-            [JetBrains.Annotations.NotNull] this Type type,
-            [JetBrains.Annotations.NotNull] string name,
-            [JetBrains.Annotations.NotNull][ItemNotNull]
-            Type[] parameterTypes)
+        static void AssertDoesNotHaveStaticMethod(this Type type, string name, Type[] parameterTypes)
         {
             var method = type.GetMethod(
                 name,
@@ -103,10 +89,8 @@ namespace Tests.Shared
             }
         }
 
-        public static void AreEqual<T>(
-            T value,
-            [JetBrains.Annotations.NotNull] Func<T, T, bool> equalityOperator,
-            [JetBrains.Annotations.NotNull] Func<T, T, bool> inequalityOperator) where T : struct, IEquatable<T>
+        public static void AreEqual<T>(T value, Func<T, T, bool> equalityOperator, Func<T, T, bool> inequalityOperator)
+            where T : struct, IEquatable<T>
         {
             Assert.IsTrue(value.Equals(value));
             Assert.IsTrue(value.Equals(value as object));
@@ -114,11 +98,8 @@ namespace Tests.Shared
             Assert.IsFalse(inequalityOperator(value, value)); // value != value
         }
 
-        public static void AreNotEqual<T>(
-            T x,
-            T y,
-            [JetBrains.Annotations.NotNull] Func<T, T, bool> equalityOperator,
-            [JetBrains.Annotations.NotNull] Func<T, T, bool> inequalityOperator) where T : struct, IEquatable<T>
+        public static void AreNotEqual<T>(T x, T y, Func<T, T, bool> equalityOperator, Func<T, T, bool> inequalityOperator)
+            where T : struct, IEquatable<T>
         {
             Assert.IsFalse(x.Equals(y));
             Assert.IsFalse(y.Equals(x));

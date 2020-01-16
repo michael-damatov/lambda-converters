@@ -14,6 +14,7 @@ namespace Tests.LambdaConverters.Wpf
     {
         [TestMethod]
         [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+        [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
         public void NoFunctions()
         {
             // invalid error strategy
@@ -22,7 +23,7 @@ namespace Tests.LambdaConverters.Wpf
                 "errorStrategy");
 
             // with ConverterErrorStrategy.ReturnDefaultValue (default)
-            Assert.AreEqual(null, Validator.Create<int>().Validate(1, null));
+            Assert.AreEqual<ValidationResult?>(null, Validator.Create<int>().Validate(1, null));
 
             // with ConverterErrorStrategy.ReturnInvalid
             ValidationResult result = Validator.Create<int>(errorStrategy: RuleErrorStrategy.ReturnInvalid).
@@ -32,8 +33,7 @@ namespace Tests.LambdaConverters.Wpf
             Assert.IsNull(result.ErrorContent);
 
             // with ConverterErrorStrategy.ReturnValid
-            result = Validator.Create<int>(errorStrategy: RuleErrorStrategy.ReturnValid).
-                                                 Validate(1, null);
+            result = Validator.Create<int>(errorStrategy: RuleErrorStrategy.ReturnValid).Validate(1, null);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsValid);
             Assert.IsNull(result.ErrorContent);
