@@ -51,17 +51,17 @@ namespace Tests.LambdaConverters.Wpf
         public void WithConvertFunction()
         {
             // with a wrong target type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string>(e => null).Convert(1, typeof(bool), null, null));
+            Assert.IsNull(ValueConverter.Create<int, string?>(e => null).Convert(1, typeof(bool), null, null));
 
             // without a target type
             Assert.AreEqual("a", ValueConverter.Create<int, string>(e => "a").Convert(1, null, null, null));
 
             // with an unexpected parameter (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string>(e => null).Convert(1, typeof(string), "p", null));
+            Assert.IsNull(ValueConverter.Create<int, string?>(e => null).Convert(1, typeof(string), "p", null));
 
             // with an input value of an unexpected type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string>(e => null).Convert(true, typeof(string), null, null));
-            Assert.IsNull(ValueConverter.Create<int, string>(e => null).Convert(null, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<int, string?>(e => null).Convert(true, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<int, string?>(e => null).Convert(null, typeof(string), null, null));
 
             // with a valid input value
             Assert.AreEqual("a", ValueConverter.Create<int, string>(e => "a").Convert(1, typeof(string), null, null));
@@ -89,17 +89,17 @@ namespace Tests.LambdaConverters.Wpf
         public void WithConvertBackFunction()
         {
             // with a wrong target type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int>(convertBackFunction: e => null).ConvertBack(1, typeof(bool), null, null));
+            Assert.IsNull(ValueConverter.Create<string?, int>(convertBackFunction: e => null).ConvertBack(1, typeof(bool), null, null));
 
             // without a target type
             Assert.AreEqual("a", ValueConverter.Create<string, int>(convertBackFunction: e => "a").ConvertBack(1, null, null, null));
 
             // with an unexpected parameter (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int>(convertBackFunction: e => null).ConvertBack(1, typeof(string), "p", null));
+            Assert.IsNull(ValueConverter.Create<string?, int>(convertBackFunction: e => null).ConvertBack(1, typeof(string), "p", null));
 
             // with an input value of an unexpected type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int>(convertBackFunction: e => null).ConvertBack(true, typeof(string), null, null));
-            Assert.IsNull(ValueConverter.Create<string, int>(convertBackFunction: e => null).ConvertBack(null, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<string?, int>(convertBackFunction: e => null).ConvertBack(true, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<string?, int>(convertBackFunction: e => null).ConvertBack(null, typeof(string), null, null));
 
             // with a valid input value
             Assert.AreEqual("a", ValueConverter.Create<string, int>(convertBackFunction: e => "a").ConvertBack(1, typeof(string), null, null));
@@ -164,18 +164,18 @@ namespace Tests.LambdaConverters.Wpf
         public void WithConvertFunction_UsingConverterParameter()
         {
             // with a wrong target type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string, bool>(e => null).Convert(1, typeof(bool), true, null));
+            Assert.IsNull(ValueConverter.Create<int, string?, bool>(e => null).Convert(1, typeof(bool), true, null));
 
             // without a target type
             Assert.AreEqual("a", ValueConverter.Create<int, string, bool>(e => "a").Convert(1, null, true, null));
 
             // with an unexpected parameter type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string, bool>(e => null).Convert(1, typeof(string), "p", null));
-            Assert.IsNull(ValueConverter.Create<int, string, bool>(e => null).Convert(1, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<int, string?, bool>(e => null).Convert(1, typeof(string), "p", null));
+            Assert.IsNull(ValueConverter.Create<int, string?, bool>(e => null).Convert(1, typeof(string), null, null));
 
             // with an input value of an unexpected type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<int, string, bool>(e => null).Convert(true, typeof(string), true, null));
-            Assert.IsNull(ValueConverter.Create<int, string, bool>(e => null).Convert(null, typeof(string), true, null));
+            Assert.IsNull(ValueConverter.Create<int, string?, bool>(e => null).Convert(true, typeof(string), true, null));
+            Assert.IsNull(ValueConverter.Create<int, string?, bool>(e => null).Convert(null, typeof(string), true, null));
 
             // with a valid input value
             Assert.AreEqual("a", ValueConverter.Create<int, string, bool>(e => "a").Convert(1, typeof(string), true, null));
@@ -207,18 +207,18 @@ namespace Tests.LambdaConverters.Wpf
         public void WithConvertBackFunction_UsingConverterParameter()
         {
             // with a wrong target type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(bool), true, null));
+            Assert.IsNull(ValueConverter.Create<string?, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(bool), true, null));
 
             // without a target type
             Assert.AreEqual("a", ValueConverter.Create<string, int, bool>(convertBackFunction: e => "a").ConvertBack(1, null, true, null));
 
             // with an unexpected parameter type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(string), "p", null));
-            Assert.IsNull(ValueConverter.Create<string, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(string), null, null));
+            Assert.IsNull(ValueConverter.Create<string?, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(string), "p", null));
+            Assert.IsNull(ValueConverter.Create<string?, int, bool>(convertBackFunction: e => null).ConvertBack(1, typeof(string), null, null));
 
             // with an input value of an unexpected type (use default error strategy)
-            Assert.IsNull(ValueConverter.Create<string, int, bool>(convertBackFunction: e => null).ConvertBack(true, typeof(string), true, null));
-            Assert.IsNull(ValueConverter.Create<string, int, bool>(convertBackFunction: e => null).ConvertBack(null, typeof(string), true, null));
+            Assert.IsNull(ValueConverter.Create<string?, int, bool>(convertBackFunction: e => null).ConvertBack(true, typeof(string), true, null));
+            Assert.IsNull(ValueConverter.Create<string?, int, bool>(convertBackFunction: e => null).ConvertBack(null, typeof(string), true, null));
 
             // with a valid input value
             Assert.AreEqual("a", ValueConverter.Create<string, int, bool>(convertBackFunction: e => "a").ConvertBack(1, typeof(string), true, null));
@@ -265,9 +265,9 @@ namespace Tests.LambdaConverters.Wpf
                     }).Convert(1, typeof(string), null, new CultureInfo("en-GB")));
 
             StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
-            StructAssert.AreNotEqual(arg, default(ValueConverterArgs<int>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default, (x, y) => x == y, (x, y) => x != y);
 
-            new HashSet<ValueConverterArgs<int>> { default(ValueConverterArgs<int>), arg, arg };
+            new HashSet<ValueConverterArgs<int>> { default, arg, arg };
         }
 
         [TestMethod]
@@ -289,9 +289,9 @@ namespace Tests.LambdaConverters.Wpf
                     }).Convert(1, typeof(string), true, new CultureInfo("en-GB")));
 
             StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
-            StructAssert.AreNotEqual(arg, default(ValueConverterArgs<int, bool>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default, (x, y) => x == y, (x, y) => x != y);
 
-            new HashSet<ValueConverterArgs<int, bool>> { default(ValueConverterArgs<int, bool>), arg, arg };
+            new HashSet<ValueConverterArgs<int, bool>> { default, arg, arg };
         }
     }
 }

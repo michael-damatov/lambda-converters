@@ -13,6 +13,7 @@ namespace Tests.LambdaConverters.Wpf
     {
         [TestMethod]
         [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+        [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
         public void NoFunctions()
         {
             // invalid error strategy
@@ -21,7 +22,7 @@ namespace Tests.LambdaConverters.Wpf
                 "errorStrategy");
 
             // with ConverterErrorStrategy.ReturnDefaultValue (default)
-            Assert.AreEqual(null, TemplateSelector.Create<int>().SelectTemplate(1, null));
+            Assert.AreEqual<DataTemplate?>(null, TemplateSelector.Create<int>().SelectTemplate(1, null));
 
             // with ConverterErrorStrategy.ReturnNewEmptyDataTemplate
             DataTemplate result = TemplateSelector.Create<int>(errorStrategy: SelectorErrorStrategy.ReturnNewEmptyDataTemplate).SelectTemplate(1, null);
@@ -32,7 +33,6 @@ namespace Tests.LambdaConverters.Wpf
         [TestMethod]
         public void WithSelectFunction()
         {
-
             // with an input value of an unexpected type (use default error strategy)
             Assert.IsNull(TemplateSelector.Create<int>(e => new DataTemplate()).SelectTemplate(true, null));
             Assert.IsNull(TemplateSelector.Create<int>(e => new DataTemplate()).SelectTemplate(null, null));
@@ -68,9 +68,9 @@ namespace Tests.LambdaConverters.Wpf
                     }).SelectTemplate(1, null));
 
             StructAssert.AreEqual(arg, (x, y) => x == y, (x, y) => x != y);
-            StructAssert.AreNotEqual(arg, default(TemplateSelectorArgs<int>), (x, y) => x == y, (x, y) => x != y);
+            StructAssert.AreNotEqual(arg, default, (x, y) => x == y, (x, y) => x != y);
 
-            new HashSet<TemplateSelectorArgs<int>> { default(TemplateSelectorArgs<int>), arg, arg };
+            new HashSet<TemplateSelectorArgs<int>> { default, arg, arg };
         }
     }
 }

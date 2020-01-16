@@ -11,7 +11,7 @@ namespace Tests.Shared
     internal static class SequenceAssert
     {
         [Pure]
-        static bool AreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> equalityComparer, [NotNull] out string reason)
+        static bool AreEqual<T>(IEnumerable<T>? expected, IEnumerable<T>? actual, Func<T, T, bool>? equalityComparer, out string reason)
         {
             if (ReferenceEquals(expected, actual))
             {
@@ -34,25 +34,21 @@ namespace Tests.Shared
                 return false;
             }
 
-            if (equalityComparer == null)
-            {
-                equalityComparer = EqualityComparer<T>.Default.Equals;
-            }
+            equalityComparer ??= EqualityComparer<T>.Default.Equals;
 
             using (var expectedEnumerator = expectedList.GetEnumerator())
             {
-                using (var actualEnumerator = actualList.GetEnumerator())
+                using var actualEnumerator = actualList.GetEnumerator();
+
+                var index = 0;
+                while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
                 {
-                    var index = 0;
-                    while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
+                    if (!equalityComparer(expectedEnumerator.Current, actualEnumerator.Current))
                     {
-                        if (!equalityComparer(expectedEnumerator.Current, actualEnumerator.Current))
-                        {
-                            reason = string.Format("Elements at index {0} do not match.", index);
-                            return false;
-                        }
-                        index++;
+                        reason = string.Format("Elements at index {0} do not match.", index);
+                        return false;
                     }
+                    index++;
                 }
             }
 
@@ -61,7 +57,7 @@ namespace Tests.Shared
         }
 
         [SuppressMessage("ReSharper", "UnusedParameter.Global")]
-        public static void DoesNotContain<T>([NotNull] IEnumerable<T> sequence, T item, IEqualityComparer<T> equalityComparer = null)
+        public static void DoesNotContain<T>(IEnumerable<T> sequence, T item, IEqualityComparer<T>? equalityComparer = null)
         {
             if (sequence.Contains(item, equalityComparer))
             {
@@ -69,7 +65,7 @@ namespace Tests.Shared
             }
         }
 
-        public static void AreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> equalityComparer = null)
+        public static void AreEqual<T>(IEnumerable<T>? expected, IEnumerable<T>? actual, Func<T, T, bool>? equalityComparer = null)
         {
             if (!AreEqual(expected, actual, equalityComparer, out var reason))
             {

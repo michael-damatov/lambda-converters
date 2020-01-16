@@ -11,7 +11,8 @@ namespace LambdaConverters
         /// <param name="x">The left operand.</param>
         /// <param name="y">The right operand.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(TemplateSelectorArgs<T> x, TemplateSelectorArgs<T> y) => Equals(x.Item, y.Item) && Equals(x.Container, y.Container);
+        public static bool operator ==(TemplateSelectorArgs<T> x, TemplateSelectorArgs<T> y)
+            => EqualityComparer<T>.Default.Equals(x.Item, y.Item) && x.Container == y.Container;
 
         /// <summary>
         /// Implements the operator <c>!=</c>.
@@ -19,13 +20,13 @@ namespace LambdaConverters
         /// <param name="x">The left operand.</param>
         /// <param name="y">The right operand.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(TemplateSelectorArgs<T> x, TemplateSelectorArgs<T> y) => !Equals(x.Item, y.Item) || !Equals(x.Container, y.Container);
+        public static bool operator !=(TemplateSelectorArgs<T> x, TemplateSelectorArgs<T> y) => !(x == y);
 
         /// <inheritdoc />
-        public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Item) ^ (Container?.GetHashCode() ?? 0);
+        public override int GetHashCode() => (Item is { } ? EqualityComparer<T>.Default.GetHashCode(Item) : 0) ^ (Container?.GetHashCode() ?? 0);
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => obj is TemplateSelectorArgs<T> && Equals((TemplateSelectorArgs<T>)obj);
+        public override bool Equals(object? obj) => obj is TemplateSelectorArgs<T> args && Equals(args);
 
         /// <inheritdoc />
         public bool Equals(TemplateSelectorArgs<T> other) => this == other;

@@ -11,11 +11,9 @@ namespace Tests.Shared
     [SuppressMessage("ReSharper", "UncatchableException")]
     internal static class ExceptionAssert
     {
-        [NotNull]
-        static E Handle<E>([NotNull] E exception, string expectedParamName = null) where E : Exception
+        static E Handle<E>(E exception, string? expectedParamName = null) where E : Exception
         {
-            var argumentException = exception as ArgumentException;
-            if (argumentException != null)
+            if (exception is ArgumentException argumentException)
             {
                 if (string.Equals(expectedParamName ?? "", argumentException.ParamName ?? "", StringComparison.Ordinal))
                 {
@@ -41,8 +39,7 @@ namespace Tests.Shared
             return exception;
         }
 
-        [NotNull]
-        public static E Throws<E>([NotNull] [InstantHandle] Action action, string expectedParamName = null) where E : Exception
+        public static E Throws<E>([InstantHandle] Action action, string? expectedParamName = null) where E : Exception
         {
             try
             {

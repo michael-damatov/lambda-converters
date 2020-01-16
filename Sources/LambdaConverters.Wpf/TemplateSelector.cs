@@ -13,41 +13,32 @@ namespace LambdaConverters
     {
         sealed class Selector<I> : DataTemplateSelector
         {
-            readonly Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction;
+            readonly Func<TemplateSelectorArgs<I>, DataTemplate?>? selectFunction;
 
             SelectorErrorStrategy ErrorStrategy { get; }
 
             [Pure]
-            DataTemplate GetErrorValue()
-            {
-                switch (ErrorStrategy)
+            DataTemplate? GetErrorValue()
+                => ErrorStrategy switch
                 {
-                    case SelectorErrorStrategy.ReturnNull:
-                        return null;
+                    SelectorErrorStrategy.ReturnNull => null,
+                    SelectorErrorStrategy.ReturnNewEmptyDataTemplate => new DataTemplate(),
+                    _ => throw new NotSupportedException()
+                };
 
-                    case SelectorErrorStrategy.ReturnNewEmptyDataTemplate:
-                        return new DataTemplate();
-
-                    default:
-                        throw new NotSupportedException();
-                }
-            }
-
-            internal Selector(
-                Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction,
-                SelectorErrorStrategy errorStrategy)
+            internal Selector(Func<TemplateSelectorArgs<I>, DataTemplate?>? selectFunction, SelectorErrorStrategy errorStrategy)
             {
                 ErrorStrategy = errorStrategy;
 
                 this.selectFunction = selectFunction;
             }
 
-            DataTemplate SelectTemplateInternal(object item, DependencyObject container)
+            DataTemplate? SelectTemplateInternal(object? item, DependencyObject? container)
             {
                 I inputValue;
                 try
                 {
-                    inputValue = (I)item;
+                    inputValue = (I)item!;
                 }
                 catch (SystemException e) when (e is InvalidCastException || e is NullReferenceException)
                 {
@@ -58,10 +49,10 @@ namespace LambdaConverters
 
                 Debug.Assert(selectFunction != null);
 
-                return selectFunction(new TemplateSelectorArgs<I>(inputValue, container));
+                return selectFunction!(new TemplateSelectorArgs<I>(inputValue, container));
             }
 
-            public override DataTemplate SelectTemplate(object item, DependencyObject container)
+            public override DataTemplate? SelectTemplate(object? item, DependencyObject? container)
             {
                 if (selectFunction == null)
                 {
@@ -85,9 +76,8 @@ namespace LambdaConverters
         ///     <paramref name="errorStrategy"/> is not a valid <see cref="SelectorErrorStrategy"/> value.
         /// </exception>
         [Pure]
-        [NotNull]
         public static DataTemplateSelector Create<I>(
-            Func<TemplateSelectorArgs<I>, DataTemplate> selectFunction = null,
+            Func<TemplateSelectorArgs<I>, DataTemplate?>? selectFunction = null,
             SelectorErrorStrategy errorStrategy = SelectorErrorStrategy.ReturnNull)
         {
             switch (errorStrategy)

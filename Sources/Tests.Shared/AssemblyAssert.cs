@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
-using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Shared
@@ -10,7 +9,6 @@ namespace Tests.Shared
     [ExcludeFromCodeCoverage]
     internal static class AssemblyAssert
     {
-        [NotNull]
         static string GetAttributeName<A>() where A : Attribute
         {
             var name = typeof(A).Name;
@@ -20,7 +18,7 @@ namespace Tests.Shared
                 name.EndsWith(nameof(Attribute), StringComparison.Ordinal) ? name.Remove(name.Length - nameof(Attribute).Length) : name);
         }
 
-        public static void AreAttributesValid([NotNull] Assembly assembly)
+        public static void AreAttributesValid(Assembly assembly)
         {
             var copyrightAttribute = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
 

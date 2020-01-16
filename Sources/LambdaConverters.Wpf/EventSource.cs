@@ -16,7 +16,6 @@ namespace LambdaConverters
             public const EventKeywords Rules = (EventKeywords)0x10;
         }
 
-        [JetBrains.Annotations.NotNull]
         public static readonly EventSource Log = new EventSource();
 
         EventSource() { }
@@ -39,8 +38,8 @@ namespace LambdaConverters
         public void MissingConvertFunction(
             string callback,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -69,8 +68,8 @@ namespace LambdaConverters
         public void MissingConvertBackFunction(
             string callback,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -100,8 +99,8 @@ namespace LambdaConverters
             string targetType,
             string outputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -132,8 +131,8 @@ namespace LambdaConverters
             string targetType,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -165,8 +164,8 @@ namespace LambdaConverters
             int position,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -196,8 +195,8 @@ namespace LambdaConverters
         )]
         public void NullValues(
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -223,8 +222,8 @@ namespace LambdaConverters
 #endif
         )]
         public void NonRequestedTargetType(
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -250,8 +249,8 @@ namespace LambdaConverters
         )]
         public void NonRequestedTargetTypeAtPosition(
             int position,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -279,8 +278,8 @@ namespace LambdaConverters
         public void ParameterInParameterlessConverter(
             string objectType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -309,8 +308,8 @@ namespace LambdaConverters
         public void ParameterInParameterlessConverterForBackConversion(
             string objectType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -340,8 +339,8 @@ namespace LambdaConverters
             string objectType,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -373,8 +372,8 @@ namespace LambdaConverters
             int position,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -406,8 +405,8 @@ namespace LambdaConverters
             string objectType,
             string outputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -438,8 +437,8 @@ namespace LambdaConverters
             string objectType,
             string parameter,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -470,8 +469,8 @@ namespace LambdaConverters
             string objectType,
             string parameter,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -501,8 +500,8 @@ namespace LambdaConverters
         public void MissingSelectTemplateFunction(
             string callback,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -532,8 +531,8 @@ namespace LambdaConverters
             string itemType,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -563,8 +562,8 @@ namespace LambdaConverters
         public void MissingRuleFunction(
             string callback,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(
@@ -594,8 +593,8 @@ namespace LambdaConverters
             string itemType,
             string inputType,
             string errorStrategy,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string sourceFilePath = null,
+            [CallerMemberName] string? memberName = null,
+            [CallerFilePath] string? sourceFilePath = null,
             [CallerLineNumber] int sourceLineNumber = 0)
             =>
                 WriteEvent(

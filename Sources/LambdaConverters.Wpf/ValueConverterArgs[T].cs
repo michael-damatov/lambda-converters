@@ -8,7 +8,7 @@ namespace LambdaConverters
     /// <typeparam name="T">The value type.</typeparam>
     public partial struct ValueConverterArgs<T>
     {
-        internal ValueConverterArgs(T value, CultureInfo culture)
+        internal ValueConverterArgs(T value, CultureInfo? culture)
         {
             Value = value;
             Culture = culture;
@@ -22,6 +22,6 @@ namespace LambdaConverters
         /// <summary>
         /// Gets the culture.
         /// </summary>
-        public CultureInfo Culture { get; }
+        public CultureInfo? Culture { get; }
     }
 }

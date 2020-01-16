@@ -1,74 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <ProjectGuid>{8DE93D00-4B56-424B-AA7D-02C4A4A41F0D}</ProjectGuid>
-    <RootNamespace>LambdaConverters</RootNamespace>
     <TargetFrameworks>netcoreapp3.0;net46;net45</TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>bin\Debug\LambdaConverters.Wpf.xml</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\LambdaConverters.Wpf.xml</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DelaySign>true</DelaySign>
+    <RootNamespace>LambdaConverters</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>LambdaConverters</PackageId>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <Authors>Michael Damatov, Dimitri Enns, Alex Helms</Authors>
-    <Company />
-    <Product />
     <Description>The library allows to create IValueConverter, IMultiValueConverter, DataTemplateSelector, and ValidationRule objects with the most convenient syntax available, ideally, using the lambda expressions.</Description>
-    <PackageLicenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/michael-damatov/lambda-converters</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</PackageIconUrl>
+    <PackageIcon>Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/michael-damatov/lambda-converters</RepositoryUrl>
     <PackageTags>lambda expression converter wpf strongly typed value multi data template selector validation rule</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  <ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
+
   <ItemGroup>
+    <None Include="..\..\Icon.png" Pack="True" PackagePath="" />
+    <None Include="..\..\LICENSE" Pack="True" PackagePath="" />
     <None Include="Properties\LambdaConverters.public.snk" />
   </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" PrivateAssets="All" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Update="Annotations\LambdaConverters.Annotations.nuspec">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Annotations\LambdaConverters.Wpf\1.0.0.0.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    <None Update="Annotations\**" CopyToOutputDirectory="Never" />
   </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
   <Target Name="ResignAssemblies" AfterTargets="CopyFilesToOutputDirectory" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <GetFrameworkSdkPath>
       <Output TaskParameter="Path" PropertyName="FrameworkSdkPath" />
@@ -79,7 +62,9 @@
     </PropertyGroup>
     <Exec Command="&quot;$(SnPath)&quot; -R &quot;$(TargetPath)&quot; &quot;$(SnkPath)&quot;" />
   </Target>
+
   <Target Name="GenegateAnnotationsPackage" AfterTargets="GenerateNuspec">
     <Exec Command="&quot;$(SolutionDir)NuGet.exe&quot; pack &quot;$(MSBuildProjectDirectory)\Annotations\LambdaConverters.Annotations.nuspec&quot; -OutputDirectory &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)&quot; -NoPackageAnalysis" />
   </Target>
+
 </Project>

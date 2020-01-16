@@ -9,10 +9,10 @@
     <Import_RootNamespace>Tests.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ArrayUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAssert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionAssert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SequenceAssert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StructAssert.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TestController.cs" />
   </ItemGroup>
 </Project>

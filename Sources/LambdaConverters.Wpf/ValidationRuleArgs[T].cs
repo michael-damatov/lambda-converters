@@ -8,7 +8,7 @@ namespace LambdaConverters
     /// <typeparam name="T">The value type.</typeparam>
     public partial struct ValidationRuleArgs<T>
     {
-        internal ValidationRuleArgs(T value, CultureInfo culture)
+        internal ValidationRuleArgs(T value, CultureInfo? culture)
         {
             Value = value;
             Culture = culture;
@@ -22,6 +22,6 @@ namespace LambdaConverters
         /// <summary>
         /// Gets the culture.
         /// </summary>
-        public CultureInfo Culture { get; }
+        public CultureInfo? Culture { get; }
     }
 }

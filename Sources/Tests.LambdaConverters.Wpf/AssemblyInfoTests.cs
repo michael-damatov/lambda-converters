@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using LambdaConverters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Shared;
@@ -12,14 +11,12 @@ namespace Tests.LambdaConverters.Wpf
     [TestClass]
     public sealed class AssemblyInfoTests
     {
-        [NotNull]
         static Assembly Assembly => typeof(ValueConverter).Assembly;
 
         [TestMethod]
         public void _AssemblyCopyright() => AssemblyAssert.AreAttributesValid(Assembly);
 
         [TestMethod]
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void NoDependencies()
             =>
                 SequenceAssert.DoesNotContain(
@@ -28,17 +25,16 @@ namespace Tests.LambdaConverters.Wpf
 
         [TestMethod]
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public void AssemblyVersions()
         {
             var assembly = Assembly;
 
             var assemblyVersion = assembly.GetName().Version;
-            Assert.AreEqual(0, assemblyVersion.Revision);
+            Assert.AreEqual(0, assemblyVersion!.Revision);
 
             var fileVersionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
 
-            Assert.AreEqual(assemblyVersion, new Version(fileVersionAttribute.Version));
+            Assert.AreEqual(assemblyVersion, new Version(fileVersionAttribute!.Version));
         }
     }
 }
