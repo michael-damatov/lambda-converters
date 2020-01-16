@@ -4,15 +4,13 @@
     <TargetFrameworks>netcoreapp3.0;net46;net45</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>true</DelaySign>
     <PackageId>LambdaConverters</PackageId>
     <Version>3.0.0</Version>
     <Authors>Michael Damatov, Dimitri Enns, Alex Helms</Authors>
     <Description>The library allows to create IValueConverter, IMultiValueConverter, DataTemplateSelector, and ValidationRule objects with the most convenient syntax available, ideally, using the lambda expressions.</Description>
-    <PackageLicenseUrl>https://github.com/michael-damatov/lambda-converters/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/michael-damatov/lambda-converters</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/michael-damatov/lambda-converters/master/Icon.png</PackageIconUrl>
+    <PackageIcon>Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/michael-damatov/lambda-converters</RepositoryUrl>
     <PackageTags>lambda expression converter wpf strongly typed value multi data template selector validation rule</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -25,7 +23,10 @@
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
+    <WarningsAsErrors />
+    <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
@@ -34,6 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\Icon.png" Pack="True" PackagePath="" />
+    <None Include="..\..\LICENSE" Pack="True" PackagePath="" />
     <None Include="Properties\LambdaConverters.public.snk" />
   </ItemGroup>
 
