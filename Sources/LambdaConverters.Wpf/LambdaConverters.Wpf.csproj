@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net46;net45</TargetFrameworks>
-    <!--<UseWPF Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">true</UseWPF>-->
     <UseWPF>true</UseWPF>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
