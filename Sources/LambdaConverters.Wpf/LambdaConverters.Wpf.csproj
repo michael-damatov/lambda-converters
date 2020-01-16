@@ -23,6 +23,7 @@
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <AssemblyOriginatorKeyFile>Properties\LambdaConverters.public.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>

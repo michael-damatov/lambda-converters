@@ -12,7 +12,7 @@ namespace Tests.LambdaConverters.Wpf
     [TestClass]
     public sealed class AssemblyInfoTests
     {
-        [NotNull]
+        [JetBrains.Annotations.NotNull]
         static Assembly Assembly => typeof(ValueConverter).Assembly;
 
         [TestMethod]

@@ -11,7 +11,11 @@ namespace Tests.Shared
     internal static class SequenceAssert
     {
         [Pure]
-        static bool AreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> equalityComparer, [NotNull] out string reason)
+        static bool AreEqual<T>(
+            IEnumerable<T> expected,
+            IEnumerable<T> actual,
+            Func<T, T, bool> equalityComparer,
+            [JetBrains.Annotations.NotNull] out string reason)
         {
             if (ReferenceEquals(expected, actual))
             {
@@ -61,7 +65,10 @@ namespace Tests.Shared
         }
 
         [SuppressMessage("ReSharper", "UnusedParameter.Global")]
-        public static void DoesNotContain<T>([NotNull] IEnumerable<T> sequence, T item, IEqualityComparer<T> equalityComparer = null)
+        public static void DoesNotContain<T>(
+            [JetBrains.Annotations.NotNull] IEnumerable<T> sequence,
+            T item,
+            IEqualityComparer<T> equalityComparer = null)
         {
             if (sequence.Contains(item, equalityComparer))
             {

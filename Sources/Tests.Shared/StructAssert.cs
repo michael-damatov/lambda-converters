@@ -10,9 +10,9 @@ namespace Tests.Shared
     internal static class StructAssert
     {
         static void AssertOverridesMethod(
-            [NotNull] this Type type,
-            [NotNull] string name,
-            [NotNull] [ItemNotNull] Type[] parameterTypes,
+            [JetBrains.Annotations.NotNull] this Type type,
+            [JetBrains.Annotations.NotNull] string name,
+            [JetBrains.Annotations.NotNull] [ItemNotNull] Type[] parameterTypes,
             Type returnType)
         {
             var method = type.GetMethod(
@@ -29,9 +29,9 @@ namespace Tests.Shared
         }
 
         static void AssertHasStaticMethod(
-            [NotNull] this Type type,
-            [NotNull] string name,
-            [NotNull] [ItemNotNull] Type[] parameterTypes,
+            [JetBrains.Annotations.NotNull] this Type type,
+            [JetBrains.Annotations.NotNull] string name,
+            [JetBrains.Annotations.NotNull] [ItemNotNull] Type[] parameterTypes,
             Type returnType,
             bool isOperator)
         {
@@ -48,7 +48,11 @@ namespace Tests.Shared
             Assert.AreEqual(isOperator, method.IsSpecialName);
         }
 
-        static void AssertDoesNotHaveStaticMethod([NotNull] this Type type, [NotNull] string name, [NotNull] [ItemNotNull] Type[] parameterTypes)
+        static void AssertDoesNotHaveStaticMethod(
+            [JetBrains.Annotations.NotNull] this Type type,
+            [JetBrains.Annotations.NotNull] string name,
+            [JetBrains.Annotations.NotNull][ItemNotNull]
+            Type[] parameterTypes)
         {
             var method = type.GetMethod(
                 name,
@@ -99,8 +103,10 @@ namespace Tests.Shared
             }
         }
 
-        public static void AreEqual<T>(T value, [NotNull] Func<T, T, bool> equalityOperator, [NotNull] Func<T, T, bool> inequalityOperator)
-            where T : struct, IEquatable<T>
+        public static void AreEqual<T>(
+            T value,
+            [JetBrains.Annotations.NotNull] Func<T, T, bool> equalityOperator,
+            [JetBrains.Annotations.NotNull] Func<T, T, bool> inequalityOperator) where T : struct, IEquatable<T>
         {
             Assert.IsTrue(value.Equals(value));
             Assert.IsTrue(value.Equals(value as object));
@@ -108,8 +114,11 @@ namespace Tests.Shared
             Assert.IsFalse(inequalityOperator(value, value)); // value != value
         }
 
-        public static void AreNotEqual<T>(T x, T y, [NotNull] Func<T, T, bool> equalityOperator, [NotNull] Func<T, T, bool> inequalityOperator)
-            where T : struct, IEquatable<T>
+        public static void AreNotEqual<T>(
+            T x,
+            T y,
+            [JetBrains.Annotations.NotNull] Func<T, T, bool> equalityOperator,
+            [JetBrains.Annotations.NotNull] Func<T, T, bool> inequalityOperator) where T : struct, IEquatable<T>
         {
             Assert.IsFalse(x.Equals(y));
             Assert.IsFalse(y.Equals(x));
