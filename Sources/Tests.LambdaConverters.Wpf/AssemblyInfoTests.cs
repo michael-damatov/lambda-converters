@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using LambdaConverters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Shared;
