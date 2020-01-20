@@ -1,4 +1,4 @@
-# Lambda Converters [![NuGet](https://img.shields.io/nuget/v/LambdaConverters.svg)](https://www.nuget.org/packages/LambdaConverters) [![ReSharper-Gallery](https://img.shields.io/badge/resharper--gallery-v3.0.0-lightgrey.svg)](https://resharper-plugins.jetbrains.com/packages/LambdaConverters.Annotations)
+# Lambda Converters [![NuGet](https://img.shields.io/nuget/v/LambdaConverters.svg)](https://www.nuget.org/packages/LambdaConverters) [![ReSharper Extension](https://img.shields.io/resharper/v/LambdaConverters.Annotations.svg?label=ReSharper%20Extension)](https://plugins.jetbrains.com/plugin/11659-lambda-converters-annotations)
 
 The library allows to create `IValueConverter`, `IMultiValueConverter`, `DataTemplateSelector`, and `ValidationRule` objects with the most convenient syntax available, ideally, using the lambda expressions.
 
